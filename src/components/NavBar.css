@@ -1,0 +1,35 @@
+.bar {
+    width: 100%;
+    font-size: large;
+}
+
+.brand {
+    width: 40%;
+}
+
+.others {
+    width: 60%;
+}
+
+#others_2 {
+    justify-content: right;
+}
+
+#list {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+#record {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+#userName {
+    padding-left: 32rem;
+}
+
+/* color */
+#headBar {
+    background-color: dimgrey;
+}
