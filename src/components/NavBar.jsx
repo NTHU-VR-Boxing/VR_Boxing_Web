@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { useHistory, useLocation } from "react-router-dom";
 import {
     Collapse,
     Navbar,
@@ -20,13 +19,6 @@ import './NavBar.css';
 class NavBar extends React.Component {
     constructor(props) {
         super(props);
-
-        /*
-        this.toggle = this.toggle.bind(this);
-        this.state = {
-            isOpen: false
-        };
-        */
     }
       
     componentWillMount() {
@@ -67,67 +59,7 @@ class NavBar extends React.Component {
             </div>
         )
     }
-    /*
-    toggle() {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
-    }
-    */
 }
 
 export default connect(state => ({
 }))(NavBar);
-
-
-/*
-export function NavBar(){
-    //const history = useHistory();
-    //const location = useLocation();
-    
-    return(
-        <div className='bar'>
-            <div className="flex items-center justify-center mt-10 text-center py-6">
-                <span className="mx-2 text-2xl font-semibold text-black">
-                    <h2>Diary</h2>
-                </span>
-            </div>
-            <Navigation
-                activeItemId = {location.pathname}
-                onSelect={({ itemId }) => {
-                    history.push(itemId);
-                }}
-                items={[
-                    {
-                        title: "User",
-                        itemId: "/user",
-                        elemBefore: () => <box-icon type='solid' name='user-circle'></box-icon>
-                    },
-                    {
-                        title: "Calendar",
-                        itemId: "/calendar",
-                        elemBefore: () => <box-icon name='calendar-week'></box-icon>
-                    },
-                    {
-                        title: "diary",
-                        itemId: "/diary",
-                        elemBefore: () => <box-icon name='bookmark'></box-icon>
-                    },
-                    {
-                        title: "group",
-                        itemId: "/group",
-                        elemBefore: () => <box-icon type='solid' name='bookmark'></box-icon>,
-                        subNav: []
-                    },
-                    {
-                        title: "Join / Read",
-                        itemId: "/join",
-                        elemBefore: () => <box-icon name='door-open'></box-icon>
-                    }
-                ]}
-            />
-        </div>
-        
-    );
-}
-*/
