@@ -5,12 +5,13 @@ import {
 	Route
 } from 'react-router-dom';
 import { Login } from './Login.jsx';
+import { NavBar } from './NavBar.jsx';
 
 export const Navigator = () => (
 	<Router>
 		<Switch>
-			<Route exact path='/login' component={Login}/>
-			{/* <Route exact path='/' component={Main}/> */}
+			<Route exact path='/' component={Login}/>
+			<Route exact path='/list' component={NavBar}/>
 			{/* <Route component={ErrorNotFoundComponent}/> */}
 		</Switch>
 	</Router>

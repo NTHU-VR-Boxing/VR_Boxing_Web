@@ -1,0 +1,46 @@
+.post-item {
+    position: relative;
+    left: 0.6%;
+    width: 100%;
+    right: 20%;
+}
+.post-item .circle .line {
+    position: relative;
+    margin-top: 0.5rem;
+    margin-left: 1.66rem;
+    background-color: #525252;
+    height: 0.2rem;
+    width: 1.5rem;
+}
+.post-item .circle {
+    height: 2rem;
+    width: 2rem;
+    background-color: black;
+    border-radius: 50%;
+    border: 0.35rem solid  white;
+    
+}
+.post-item .post {
+    background-color: white;
+    position: relative;
+    padding-left: 0.5rem;
+    left: 2rem;
+    width: 50%
+}
+
+.post-item .wrap {
+    width: 100%;
+    padding-left: 0.75rem;
+    padding-top: 0.25rem;
+    overflow: hidden;
+}
+.post-item .ts {
+    color: #707070;
+    margin-top: 0.25rem;
+    margin-bottom: 0.1rem;
+}
+
+.post-item .text {
+    color: #525252;
+    margin-bottom: 0.75rem;
+}

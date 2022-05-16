@@ -12,7 +12,7 @@
 }
 
 #others_2 {
-    justify-content: right;
+    justify-content: left;
 }
 
 #list {
@@ -26,10 +26,12 @@
 }
 
 #userName {
-    padding-left: 32rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    /* padding-left: 32rem; */
 }
 
 /* color */
 #headBar {
-    background-color: dimgrey;
+    background-color: #454545;
 }

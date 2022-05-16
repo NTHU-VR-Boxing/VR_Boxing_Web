@@ -1,0 +1,48 @@
+.postEdit{
+    position: fixed;
+    left: 15%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    background-color: white;
+    overflow: auto;
+}
+
+.postEdit .edit {
+    position: relative;
+    left: 10%;
+    top:10%;
+}
+.postEdit .location {
+    margin-top: 2rem;
+}
+
+.postEdit .AddText {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 50%;
+    max-width: 40rem;
+    height: 20rem;
+    border: #525252 solid 0.2rem;
+    border-radius: 2.5rem;
+}
+
+.postEdit .media{
+    color: black;
+    height: 3rem;
+    width: 10rem;
+    background-color: white;
+    border: none;
+}
+
+
+.postEdit .done{
+    position: fixed;
+    bottom:10%;
+    right: 10%;
+    color: black;
+    background-color: white;
+    border: #525252 solid 1px;
+    margin-top: 2rem;
+    border-radius: 2rem;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import '../sb-admin-2.css';
+import '../../public/sb-admin-2.css';
 
 class Login extends React.Component {
 	
@@ -33,14 +33,14 @@ class Login extends React.Component {
 
 	render() {
 		return (
-			<div class="container">
-
+            <div style={{height: "100%"}}>
+			<div class="container" style={{position:"absolute", top:"50%", left:"50%", transform:"translate(-50%, -50%)"}}>
                  {/* Outer Row  */}
                 <div class="row justify-content-center">
 
                     <div class="col-xl-10 col-lg-12 col-md-9">
 
-                        <div class="card o-hidden border-0 shadow-lg my-5">
+                        <div class="card o-hidden border-0 shadow-lg my-auto">
                             <div class="card-body p-0">
                                 {/* <!-- Nested Row within Card Body --> */}
                                 <div class="row">
@@ -48,7 +48,7 @@ class Login extends React.Component {
                                     <div class="col-lg-6">
                                         <div class="p-5">
                                             <div class="text-center">
-                                                <h1 class="h4 text-gray-900 mb-4">VR Boxing</h1>
+                                                <h1 class="h3 text-gray-900 mb-4">VR Boxing</h1>
                                             </div>
                                             <form class="user">
                                                 <div class="form-group">
@@ -95,6 +95,7 @@ class Login extends React.Component {
 
                 </div>
 
+            </div>
             </div>
 		);
 	}

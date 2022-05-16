@@ -2363,8 +2363,8 @@ fieldset:disabled a.btn {
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #2e59d9;
-  border-color: #2653d4;
+  background-color: #f6c23e;
+  border-color: #f6c23e;
 }
 
 .btn-primary:focus, .btn-primary.focus {
@@ -10861,7 +10861,7 @@ a:focus {
 }
 
 .bg-login-image {
-  background: url("https://source.unsplash.com/K4mSJ7kc0As/600x800");
+  background: url('img/cat.jpg');
   background-position: center;
   background-size: cover;
 }

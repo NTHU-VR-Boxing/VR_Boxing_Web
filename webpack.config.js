@@ -3,6 +3,7 @@ const webpack = require('webpack');
 
 const srcPath = path.resolve(__dirname, 'src');
 const distPath = path.resolve(__dirname, 'dist');
+const publicPath = path.resolve(__dirname, 'public');
 
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
@@ -11,6 +12,7 @@ const htmlPlugin = new HtmlWebPackPlugin({
   filename: "./index.html"
 });
 
+
 module.exports = {
     context: srcPath,
     resolve: {
@@ -18,7 +20,8 @@ module.exports = {
             states: path.resolve(srcPath, 'states'),
             utilities: path.resolve(srcPath, 'utilities'),
             components: path.resolve(srcPath, 'components'),
-            api: path.resolve(srcPath, 'api')
+            api: path.resolve(srcPath, 'api'),
+            img: path.resolve(publicPath, 'img')
         }
     },
     entry: {
@@ -63,6 +66,26 @@ module.exports = {
                         }
                     }
                 ]
+            }, {
+                test: /\.(png|jpe?g|gif|svg|webp)$/i,
+                use: [
+                  {
+                    loader: 'url-loader',
+                    options: {
+                      limit: 8192,
+                      name: 'img/[name].[ext]',
+                      esModule: false // default is true (using ES module)
+                    },
+                  },
+                  // 配置 image-webpack-loader (第一步)
+                  {
+                    loader: 'image-webpack-loader',
+                    options: {
+                      // 只在 production 環境啟用壓縮 (第二步)
+                      disable: process.env.NODE_ENV === 'production' ? false : true,
+                    },
+                  },
+                ],
             }
         ]
     },
