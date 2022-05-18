@@ -27,6 +27,10 @@ jobs:
     - name: Build project
       run: npm run build
 
+    - name: Add CNAME
+      run: |
+        echo "web.nthu-vr-boxing.yikuo.dev" > ./dist/CNAME
+
     - name: Upload production-ready build files
       uses: actions/upload-artifact@v2
       with:
