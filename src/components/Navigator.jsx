@@ -4,15 +4,21 @@ import {
 	Switch,
 	Route
 } from 'react-router-dom';
-import { Login } from './Login.jsx';
-import { NavBar } from './NavBar.jsx';
+import Login from 'components/Login.jsx';
+import NavBar from 'components/NavBar.jsx';
 
 export const Navigator = () => (
 	<Router>
 		<Switch>
-			<Route exact path='/' component={Login}/>
-			<Route exact path='/list' component={NavBar}/>
-			{/* <Route component={ErrorNotFoundComponent}/> */}
+			<Route exact path='/'>
+				<Login/>
+			</Route>
+			<Route exact path='/list'>
+				<NavBar/>
+			</Route>
+			<Route exact path='/record'>
+				<NavBar/>
+			</Route>
 		</Switch>
 	</Router>
 );

@@ -10,9 +10,7 @@ import {postEdit} from 'states/postEdit-reducer.js';
 import {diary} from './states/post-reducers';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import Login from 'components/Login.jsx';
-//import NavBar from 'components/NavBar.jsx';
-// import { Navigator } from 'components/Navigator.jsx';
+import { Navigator } from 'components/Navigator.jsx';
 
 window.onload = function() {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -22,9 +20,7 @@ window.onload = function() {
     // console.log(store.getState());
     ReactDOM.render(
         <Provider store={store}>
-            <Login/>
-            {/* <NavBar /> */}
-            {/* <Navigator/> */}
+            <Navigator/>
         </Provider>,
         document.getElementById('root')
     );

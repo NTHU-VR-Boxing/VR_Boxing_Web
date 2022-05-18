@@ -3,7 +3,6 @@ const webpack = require('webpack');
 
 const srcPath = path.resolve(__dirname, 'src');
 const distPath = path.resolve(__dirname, 'dist');
-const publicPath = path.resolve(__dirname, 'public');
 
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
@@ -20,8 +19,7 @@ module.exports = {
             states: path.resolve(srcPath, 'states'),
             utilities: path.resolve(srcPath, 'utilities'),
             components: path.resolve(srcPath, 'components'),
-            api: path.resolve(srcPath, 'api'),
-            img: path.resolve(publicPath, 'img')
+            api: path.resolve(srcPath, 'api')
         }
     },
     entry: {
@@ -62,16 +60,19 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options : {
-                            url: false
+                            url: true
                         }
                     }
                 ]
-            }, {
+            }
+            , {
                 test: /\.(png|jpe?g|gif|svg|webp)$/i,
                 use: [
                   {
                     loader: 'url-loader',
                     options: {
+                      //當載入圖片，小於limit時，會將圖片編譯成base64字串形式
+                      //當載入圖片，大於limit時，會將圖片使用file-loader模組載入
                       limit: 8192,
                       name: 'img/[name].[ext]',
                       esModule: false // default is true (using ES module)

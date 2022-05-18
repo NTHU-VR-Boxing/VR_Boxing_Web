@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 
 import '../../public/sb-admin-2.css';
 
@@ -60,31 +61,24 @@ class Login extends React.Component {
                                                     <input type="password" class="form-control form-control-user"
                                                         id="exampleInputPassword" placeholder="Password"/>
                                                 </div>
-                                                <div class="form-group">
+                                                {/* <div class="form-group">
                                                     <div class="custom-control custom-checkbox small">
                                                         <input type="checkbox" class="custom-control-input" id="customCheck"/>
-                                                        {/* <label class="custom-control-label" for="customCheck">Remember
-                                                            Me</label> */}
+                                                        <label class="custom-control-label" for="customCheck">Remember
+                                                            Me</label>
                                                     </div>
-                                                </div>
-                                                <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                                    Login
-                                                </a>
-                                                {/* <hr/>
-                                                <a href="index.html" class="btn btn-google btn-user btn-block">
-                                                    <i class="fab fa-google fa-fw"></i> Login with Google
-                                                </a>
-                                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                                    <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                                                </a> */}
+                                                </div> */}
+                                                <Link to="/list/" class="btn btn-primary btn-user btn-block">Login</Link>
                                             </form>
                                             <hr/>
-                                            <div class="text-center">
+                                            {/* <div class="text-center">
                                                 <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                            </div>
-                                            <div class="text-center">
-                                                <a class="small" href="register.html">Create an Account!</a>
-                                            </div>
+                                            </div> */}
+                                            <form class="user">
+                                                <div class="text-center">
+                                                    <a class=" btn btn-info btn-user btn-block" href="register.html">Create an Account!</a>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

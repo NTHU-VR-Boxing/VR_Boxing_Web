@@ -13,10 +13,17 @@ import {
     DropdownMenu,
     DropdownItem, 
     Container} from 'reactstrap';
+import { Link } from "react-router-dom";
+
 import './NavBar.css';
 
 
 class NavBar extends React.Component {
+    // static propTypes = {
+    //     activeList: PropTypes.bool,
+    //     activeRecord: PropTypes.bool
+    // };
+
     constructor(props) {
         super(props);
     }
@@ -33,15 +40,15 @@ class NavBar extends React.Component {
                     <div class="container-fluid">
                         <div class="d-flex bar">
                             <div class="p-2 brand">
-                                <NavbarBrand  href="/">VR Boxing 輔助系統</NavbarBrand>
+                                <NavbarBrand>VR Boxing 輔助系統</NavbarBrand>
                             </div>
                             <div class="p-2 others">
                                 <Nav navbar id="others_2">
                                     <NavItem>
-                                        <NavLink id="list" href="/list/">菜單制訂</NavLink>
+                                        <NavLink id="list" tag={Link} to="/list/">菜單制訂</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink id="record" href="/record/">影片回饋</NavLink>
+                                        <NavLink id="record" tag={Link} to="/record/">影片回饋</NavLink>
                                     </NavItem>
                                     <UncontrolledDropdown nav inNavbar>
                                         <DropdownToggle nav caret id="userName">User</DropdownToggle>
