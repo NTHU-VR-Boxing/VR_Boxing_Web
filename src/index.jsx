@@ -10,7 +10,7 @@ import {postEdit} from 'states/postEdit-reducer.js';
 import {diary} from './states/post-reducers';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import { Navigator } from 'components/Navigator.jsx';
+import Navigator from 'components/Navigator.jsx';
 
 window.onload = function() {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

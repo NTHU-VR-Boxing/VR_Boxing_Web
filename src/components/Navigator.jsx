@@ -6,19 +6,33 @@ import {
 } from 'react-router-dom';
 import Login from 'components/Login.jsx';
 import NavBar from 'components/NavBar.jsx';
+import List from 'components/List.jsx';
+import EditList from 'components/EditList.jsx';
 
-export const Navigator = () => (
-	<Router>
-		<Switch>
-			<Route exact path='/'>
-				<Login/>
-			</Route>
-			<Route exact path='/list'>
-				<NavBar/>
-			</Route>
-			<Route exact path='/record'>
-				<NavBar/>
-			</Route>
-		</Switch>
-	</Router>
-);
+export default class Navigator extends React.Component {
+	constructor(props) {
+	  super(props);
+  
+	}
+
+	render(){
+		return(
+			<Router>
+				<Switch>
+					<Route exact path='/'>
+						<Login/>
+					</Route>
+					<Route exact path='/list/'>
+						<div style={{display:'flex', flexDirection:'column'}}>
+							<NavBar/>
+							<EditList/>
+						</div>
+					</Route>
+					<Route exact path='/record/'>
+						<NavBar/>
+					</Route>
+				</Switch>
+			</Router>
+		)
+	}
+}

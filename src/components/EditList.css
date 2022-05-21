@@ -1,0 +1,130 @@
+/* sidebar */
+.sidebar {
+    width: 15%;
+    background-color: #4D4B4C;
+    position: relative;
+}
+
+.up {
+    position: absolute;
+    height: 40%;
+    width: 100%;
+    padding-top: 10px;
+    padding-left: 10px;
+    color: aliceblue;
+    font-size: x-large;
+}
+
+.down {
+    position: absolute;
+    height: 40%;
+    width: 100%;
+    bottom: 15%;
+    padding-top: 10px;
+    padding-left: 10px;
+    color: aliceblue;
+    font-size: x-large;
+}
+
+/* right part */
+.right {
+    width: 85%;
+}
+
+.board {
+    height: 65%;
+}
+
+.board .info {
+    background-color: aqua;
+    width: 30%;
+}
+
+.board .anim {
+    background-color: blue;
+    width: 50%;
+}
+
+.board .button {
+    background-color: aquamarine;
+    width: 20%;
+}
+
+.timeline {
+    height: 9%;
+    background-color: #3D3D3D;
+}
+
+.edit {
+    height: 26%;
+    background-color: #545454;
+}
+
+
+/* sidebar decoration */
+.box {
+    padding: 10px;
+    height: 100%;
+    justify-content: space-around;
+    font-size: large;
+}
+
+.label {
+    width: fit-content;
+    border-radius: 0.8ch;
+    padding: 3px;
+    background-color: blue;
+}
+
+.a {
+    background-color: dodgerblue;
+}
+
+.b {
+    background-color: darkblue;
+}
+
+.c {
+    background-color: rgb(107, 255, 248);
+    color: black;
+}
+
+.d {
+    background-color: darkcyan;
+}
+
+.e {
+    background-color: magenta;
+}
+
+.f {
+    background-color: darkorchid;
+}
+
+.g {
+    background-color: khaki;
+    color: black;
+}
+
+.h {
+    background-color: orange;
+    color: black;
+}
+
+.i {
+    background-color: greenyellow;
+    color: black;
+}
+
+.j {
+    background-color: darkgreen;
+}
+
+.k {
+    background-color: pink;
+    color: black;
+}
+
+.l {
+    background-color: crimson;
+}

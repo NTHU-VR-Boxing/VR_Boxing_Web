@@ -37,12 +37,12 @@ class NavBar extends React.Component {
         return(
             <div>
                 <Navbar dark expand="lg" id="headBar">
-                    <div class="container-fluid">
-                        <div class="d-flex bar">
-                            <div class="p-2 brand">
+                    <div className="container-fluid">
+                        <div className="d-flex bar">
+                            <div className="p-2 brand">
                                 <NavbarBrand>VR Boxing 輔助系統</NavbarBrand>
                             </div>
-                            <div class="p-2 others">
+                            <div className="p-2 others">
                                 <Nav navbar id="others_2">
                                     <NavItem>
                                         <NavLink id="list" tag={Link} to="/list/">菜單制訂</NavLink>

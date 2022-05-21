@@ -27,7 +27,8 @@ module.exports = {
     },
     output: {
         path: distPath,
-        filename: '[name].bundle.js'
+        filename: '[name].bundle.js',
+        publicPath: '/',
     },
     module: {
         rules: [
@@ -99,7 +100,8 @@ module.exports = {
     devServer: {
         contentBase: distPath,
         compress: true,
-        port: 8080
+        port: 8080,
+        historyApiFallback: true
     },
-    devtool: 'cheap-source-map'
+    devtool: 'source-map'
 };
