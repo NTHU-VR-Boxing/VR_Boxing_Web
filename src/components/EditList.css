@@ -10,7 +10,7 @@
     height: 40%;
     width: 100%;
     padding-top: 10px;
-    padding-left: 10px;
+    padding-left: 20px;
     color: aliceblue;
     font-size: x-large;
 }
@@ -21,7 +21,7 @@
     width: 100%;
     bottom: 15%;
     padding-top: 10px;
-    padding-left: 10px;
+    padding-left: 20px;
     color: aliceblue;
     font-size: x-large;
 }
@@ -38,6 +38,7 @@
 .board .info {
     background-color: aqua;
     width: 30%;
+    position: relative;
 }
 
 .board .anim {
@@ -51,17 +52,13 @@
 }
 
 .timeline {
-    height: 9%;
-    background-color: #3D3D3D;
+    height:25%;
+    background-color: black;
+    overflow-x: auto;
+    position: relative;
 }
 
-.edit {
-    height: 26%;
-    background-color: #545454;
-}
-
-
-/* sidebar decoration */
+/* block decoration */
 .box {
     padding: 10px;
     height: 100%;
@@ -73,15 +70,23 @@
     width: fit-content;
     border-radius: 0.8ch;
     padding: 3px;
-    background-color: blue;
+    border: 0;
+}
+
+.block {
+    display: inline-block;
+    width: 70px;
+    position: absolute;
 }
 
 .a {
     background-color: dodgerblue;
+    color: white;
 }
 
 .b {
     background-color: darkblue;
+    color: white;
 }
 
 .c {
@@ -91,14 +96,17 @@
 
 .d {
     background-color: darkcyan;
+    color: white;
 }
 
 .e {
     background-color: magenta;
+    color: white;
 }
 
 .f {
     background-color: darkorchid;
+    color: white;
 }
 
 .g {
@@ -118,6 +126,7 @@
 
 .j {
     background-color: darkgreen;
+    color: white;
 }
 
 .k {
@@ -127,4 +136,5 @@
 
 .l {
     background-color: crimson;
+    color: white;
 }
