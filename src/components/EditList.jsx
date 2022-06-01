@@ -80,12 +80,12 @@ const draggableOptions = {
         // keep the dragged position in the data-x/data-y attributes
         const x = (parseFloat(target.getAttribute("data-x")) || target.style.left) + event.dx;
        
-        // translate the element
-        if (x >= 0) {
+        if (x > 0) {
+            // translate the element
             target.style.left = `${x}px`;
+            // target.style.webkitTransform = target.style.transform = "translate(" + x + "px, " + y + "px)";
         }
-        // target.style.webkitTransform = target.style.transform = "translate(" + x + "px, " + y + "px)";
-        
+
         // update the posiion attributes
         target.setAttribute("data-x", x);
     }
