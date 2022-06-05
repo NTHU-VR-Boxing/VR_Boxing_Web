@@ -45,8 +45,8 @@ class NavBar extends React.Component {
                                     <NavItem>
                                         <NavLink id="record" tag={Link} to="/record/">影片回饋</NavLink>
                                     </NavItem>
-                                    <UncontrolledDropdown nav inNavbar>
-                                        <DropdownToggle nav caret id="userName">User</DropdownToggle>
+                                    <UncontrolledDropdown nav inNavbar style={{flexGrow: "2", alignSelf: "flex-end"}}>
+                                        <DropdownToggle nav caret id="userName" style={{textAlign: "right"}}>User</DropdownToggle>
                                         <DropdownMenu right>
                                         <DropdownItem>
                                             登出

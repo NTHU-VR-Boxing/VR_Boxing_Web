@@ -1,92 +1,207 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
+import { Form, FormGroup, Label, Input, FormFeedback, FormText, Col } from 'reactstrap';
 import Interactable from './Interactable.jsx';
 import { Timeline } from './Timeline.jsx';
+import { addBlock, moveBlock } from '../states/EditList-action.js';
 
 import 'components/EditList.css'
 
 class EditList extends React.Component {
     static propTypes = {
-        time: PropTypes.arrayOf(PropTypes.object)
+        // timeline: PropTypes.arrayOf(PropTypes.object) // JSON: [{id, timeStart},]
+        timeline: PropTypes.arrayOf(PropTypes.shape({
+            id: PropTypes.string, // uuid v4
+            fistType: PropTypes.string,
+            timeStart: PropTypes.number
+        }))
     };
 
     constructor(props) {
         super(props);
 
-        this.handleClick = this.handleClick.bind(this);
+        this.handleBlockClick = this.handleBlockClick.bind(this);
+
+        this.draggableOptions = {
+            onmove: event => {
+                const target = event.target;
+                
+                // keep the dragged position in the data-x/data-y attributes
+                const pos = target.style.left.indexOf("px");
+                const left = parseFloat(target.style.left.substr(0, pos));
+                const x = (parseFloat(target.getAttribute("data-x")) || left) + event.dx;
+            
+                if(x >= 0) {
+                    // translate the element
+                    target.style.left = `${x}px`;
+                    // target.style.webkitTransform = target.style.transform = "translate(" + x + "px, " + y + "px)";
+    
+                    // update the posiion attributes
+                    target.setAttribute("data-x", x);
+                }
+            },
+            onend: event => {
+                const target = event.target;
+                const new_time = parseFloat(target.getAttribute("data-x")) / 35 * 0.1;
+                this.props.dispatch(moveBlock(target.id, new_time));
+            }
+        };
     }
     
     render() {
+        const {timeline} = this.props;
+
+        let arrangement;
+        if(timeline.length == 0){ // no blocks
+            arrangement = (<div style={{textAlign: "center"}}>請點選左方動作以加入時間軸</div>);
+        }
+        else{ // render blocks
+            arrangement = timeline.map((block) => {
+                const class_name = `label block ${block.fistType}`;
+
+                const length = block.timeStart / 0.1 * 35;
+                const style_left = `${length}px`;
+
+                return(
+                    <Interactable draggable={true} draggableOptions={this.draggableOptions} key={block.id}>
+                        <div className={class_name} style={{left: style_left}} id={block.id}>{getFistName(block.fistType)}</div>
+                    </Interactable>
+                );
+            });
+        }
+
         return (
             <div className='d-flex flex-row'>
                 <div className='sidebar'>
                     <div className='up'>
                         防守訓練
                         <div className='d-flex flex-column box'>
-                            <button className='label a' onClick={this.handleClick}>前手直拳</button>
-                            <button className='label b'>後手直拳</button>
-                            <button className='label c'>前手擺拳</button>
-                            <button className='label d'>後手擺拳</button>
-                            <button className='label e'>前手勾拳</button>
-                            <button className='label f'>後手勾拳</button>
+                            <button className='label a' onClick={this.handleBlockClick}>前手直拳</button>
+                            <button className='label b' onClick={this.handleBlockClick}>後手直拳</button>
+                            <button className='label c' onClick={this.handleBlockClick}>前手擺拳</button>
+                            <button className='label d' onClick={this.handleBlockClick}>後手擺拳</button>
+                            <button className='label e' onClick={this.handleBlockClick}>前手勾拳</button>
+                            <button className='label f' onClick={this.handleBlockClick}>後手勾拳</button>
                         </div>
                     </div>
                     <div className='down'>
                         進攻訓練
                         <div className='d-flex flex-column box'>
-                            <button className='label g'>臉部空檔（左）</button>
-                            <button className='label h'>臉部空檔（右）</button>
-                            <button className='label i'>臉部空檔（中間）</button>
-                            <button className='label j'>腹部空檔（左側腹）</button>
-                            <button className='label k'>腹部空檔（右側腹）</button>
-                            <button className='label l'>腹部空檔（中間）</button>
+                            <button className='label g' onClick={this.handleBlockClick}>臉部空檔（左）</button>
+                            <button className='label h' onClick={this.handleBlockClick}>臉部空檔（右）</button>
+                            <button className='label i' onClick={this.handleBlockClick}>臉部空檔（中間）</button>
+                            <button className='label j' onClick={this.handleBlockClick}>腹部空檔（左側腹）</button>
+                            <button className='label k' onClick={this.handleBlockClick}>腹部空檔（右側腹）</button>
+                            <button className='label l' onClick={this.handleBlockClick}>腹部空檔（中間）</button>
                         </div>
                     </div>
                 </div>
                 <div className='right'>
                     <div className='board d-flex'>
-                        <div className='info'></div>
+                        <div className='info'>
+                            <Form style={{padding: "20px"}}>
+                                <FormGroup className='mb-5'>
+                                    <Label for='name' style={{color: "white", fontSize:"x-large"}}>菜單名稱</Label>
+                                    <Input type='text'/>
+                                </FormGroup>
+                                <FormGroup row style={{color: "white"}}>
+                                    <legend style={{color: "white"}}>設定目標</legend>
+                                    <FormGroup className='d-flex flex-row'>
+                                        <Label for='validHit'>有效打擊</Label>
+                                        <Col >
+                                            <Input type="text" name="validHit" id="validHit" bsSize="sm"/>
+                                        </Col>
+                                        <Label style={{flexGrow: "2"}}>次</Label>
+                                    </FormGroup>
+                                    <FormGroup className='d-flex flex-row'>
+                                        <Label for='???'>成功格檔</Label>
+                                        <Col >
+                                            <Input type="text" name="???" id="???" bsSize="sm"/>
+                                        </Col>
+                                        <Label style={{flexGrow: "2"}}>次</Label>
+                                    </FormGroup>
+                                    <FormGroup className='d-flex flex-row'>
+                                        <Label for='???'>成功閃避</Label>
+                                        <Col >
+                                            <Input type="text" name="???" id="???" bsSize="sm"/>
+                                        </Col>
+                                        <Label style={{flexGrow: "2"}}>次</Label>
+                                    </FormGroup>
+                                </FormGroup>
+                            </Form>
+                        </div>
                         <div className='anim'></div>
-                        <div className='button'></div>
+                        <div className='button d-flex flex-column'>
+                            <button className='clickButton' style={{backgroundColor: "#F3B61B"}}>儲存</button>
+                            <button className='clickButton' style={{backgroundColor: "red", color: "white"}}>刪除</button>
+                        </div>
                     </div>
                     <div className='timeline'>
                         <Timeline/>
-                        <Interactable draggable={true} draggableOptions={draggableOptions}>
-                            <div className='label a block'>前手直拳</div>
-                        </Interactable>
-                        <Interactable draggable={true} draggableOptions={draggableOptions}>
-                            <div className='label b block' style={{left: "70px"}}>後手直拳</div>
-                        </Interactable>
+                        {arrangement}
                     </div>
                 </div>
             </div>
         );
     }
 
-    handleClick(e){ // add chosen block to timeline
-
-    }
+    handleBlockClick(e){ // add chosen block to timeline
+        let class_name = e.target.className.split(/\s+/);
+        
+        // find start time of this new block
+        const {timeline, dispatch} = this.props;
+        if(timeline.length == 0) { // add to time(0s)
+            dispatch(addBlock(uuidv4(), class_name[1], 0));
+        }
+        else{ 
+            // find the last block
+            let max_idx = 0;
+            let max = -1;
+            timeline.forEach(function(item, i){
+                if(item.timeStart > max){
+                    max = item.timeStart;
+                    max_idx = i;
+                }
+            });
+            dispatch(addBlock(uuidv4(), class_name[1], timeline[max_idx].timeStart + 0.2));
+        }
+    } 
 }
 
 export default connect(state => ({
     ...state.editList
 }))(EditList);
 
-const draggableOptions = {
-    onmove: event => {
-        const target = event.target;
-        
-        // keep the dragged position in the data-x/data-y attributes
-        const x = (parseFloat(target.getAttribute("data-x")) || target.style.left) + event.dx;
-       
-        if (x > 0) {
-            // translate the element
-            target.style.left = `${x}px`;
-            // target.style.webkitTransform = target.style.transform = "translate(" + x + "px, " + y + "px)";
-        }
 
-        // update the posiion attributes
-        target.setAttribute("data-x", x);
+function getFistName(fist_type){
+    switch(fist_type){
+        case 'a':
+            return "前手直拳";
+        case 'b':
+            return "後手直拳";
+        case 'c':
+            return "前手擺拳";
+        case 'd':
+            return "後手擺拳";
+        case 'e':
+            return "前手勾拳";
+        case 'f':
+            return "後手勾拳";
+        case 'g':
+            return "臉部空檔（左）";
+        case 'h':
+            return "臉部空檔（右）";
+        case 'i':
+            return "臉部空檔（中間）";
+        case 'j':
+            return "腹部空檔（左側腹）";
+        case 'k':
+            return "腹部空檔（右側腹）";
+        case 'l':
+            return "腹部空檔（中間）";
+        default:
+            return "None";
     }
-};
+}

@@ -42,10 +42,10 @@ class Interactable extends React.Component {
         this.setInteractions();
     }
 
-    componentWillReceiveProps() { // unused
-        this.interact = interact(findDOMNode(this.node));
-        this.setInteractions();
-    }
+    // componentWillReceiveProps() { // unused
+    //     this.interact = interact(findDOMNode(this.node));
+    //     this.setInteractions();
+    // }
 
     setInteractions() {
         // console.log(this.props);
