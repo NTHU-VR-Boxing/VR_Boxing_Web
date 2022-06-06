@@ -1,29 +1,21 @@
 import React from "react";
-import {Button} from "reactstrap";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-export function PageManager(){
+import 'components/EditList.css';
 
-    props
+export function AddListButton() {
     let history = useHistory();
 
-    function handleClick(x){
-        switch(x){
-            case 'editPost':
-                history.push("/editPost");
-                break;
-            case 'back':
-                history.goBack();
-                break;
-            default:
-                history.push("/");
-                break;
-        }
-        
+    function handleClick(e){
+        history.push('/edit-list/');
     }
-        return(
-            <div>
-            <Button onClick={handleClick(action)}>Add</Button>
-            </div>
-        );
+
+    const style = {
+        backgroundColor: "#F3B61B",
+        width: "170px"
+    }
+
+    return(
+       <button className='clickButton' style={style} onClick={handleClick}>建立新菜單</button>
+    );
 }

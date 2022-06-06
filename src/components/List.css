@@ -1,0 +1,74 @@
+.sidebar {
+    width: 15%;
+    background-color: #4D4B4C;
+    position: relative;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    height: 0px;
+}
+
+.student-div {
+    height: 50px;
+}
+
+.student {
+    width: 100%;
+    line-height: 50px;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+    background-color: #4D4B4C;
+    border: none;
+}
+
+.student:hover {
+    background-color: gray;
+}
+
+.right {
+    width: 85%;
+    position: relative;
+}
+
+.list {
+    height: 80%;
+    overflow-y: auto;
+    position: absolute;
+    width: 100%;
+}
+
+.all-list {
+    margin-top: 0;
+}
+
+.mini-card {
+    background-color: white;
+    width: 200px;
+    height: 50px;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 45px;
+}
+
+.mini-card:hover {
+    background-color: #F3B61B;
+}
+
+.word {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: black;
+    font-weight: bold;
+}
+
+.word:hover {
+    color: white;
+}
+
+.add-button {
+    height: 10%;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}

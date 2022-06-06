@@ -3,11 +3,14 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { Form, FormGroup, Label, Input, FormFeedback, FormText, Col } from 'reactstrap';
+import creatHistory from 'history/createBrowserHistory';
+
 import Interactable from './Interactable.jsx';
 import { Timeline } from './Timeline.jsx';
 import { addBlock, moveBlock } from '../states/EditList-action.js';
+import { SaveButton } from './PageManager.jsx';
 
-import 'components/EditList.css'
+import 'components/EditList.css';
 
 class EditList extends React.Component {
     static propTypes = {
@@ -23,6 +26,7 @@ class EditList extends React.Component {
         super(props);
 
         this.handleBlockClick = this.handleBlockClick.bind(this);
+        this.handleSaveClick = this.handleSaveClick.bind(this)
 
         this.draggableOptions = {
             onmove: event => {
@@ -44,7 +48,7 @@ class EditList extends React.Component {
             },
             onend: event => {
                 const target = event.target;
-                const new_time = parseFloat(target.getAttribute("data-x")) / 35 * 0.1;
+                const new_time = parseFloat(target.getAttribute("data-x")) / 15 * 0.1;
                 this.props.dispatch(moveBlock(target.id, new_time));
             }
         };
@@ -61,7 +65,7 @@ class EditList extends React.Component {
             arrangement = timeline.map((block) => {
                 const class_name = `label block ${block.fistType}`;
 
-                const length = block.timeStart / 0.1 * 35;
+                const length = block.timeStart / 0.1 * 15;
                 const style_left = `${length}px`;
 
                 return(
@@ -134,7 +138,8 @@ class EditList extends React.Component {
                         </div>
                         <div className='anim'></div>
                         <div className='button d-flex flex-column'>
-                            <button className='clickButton' style={{backgroundColor: "#F3B61B"}}>儲存</button>
+                            <button className='clickButton' style={{backgroundColor: "#F3B61B"}} onClick={this.handleSaveClick}>儲存</button>
+                            {/* <SaveButton/> */}
                             <button className='clickButton' style={{backgroundColor: "red", color: "white"}}>刪除</button>
                         </div>
                     </div>
@@ -165,9 +170,15 @@ class EditList extends React.Component {
                     max_idx = i;
                 }
             });
-            dispatch(addBlock(uuidv4(), class_name[1], timeline[max_idx].timeStart + 0.2));
+            const dt = getFistTime(timeline[max_idx].fistType);
+            dispatch(addBlock(uuidv4(), class_name[1], timeline[max_idx].timeStart + dt));
         }
     } 
+
+    handleSaveClick(e) {
+        const history = creatHistory();
+        history.goBack();
+    }
 }
 
 export default connect(state => ({
@@ -205,3 +216,25 @@ function getFistName(fist_type){
             return "None";
     }
 }
+
+function getFistTime(fist_type) {
+    switch(fist_type){
+        case 'a':
+        case 'b':
+        case 'c':
+        case 'd':
+        case 'e':
+        case 'f':
+            return 0.4;
+        case 'g':
+        case 'h':
+        case 'i':
+        case 'j':
+        case 'k':
+        case 'l':
+            return 0.6;
+        default:
+            return 0.6;
+    }
+}
+

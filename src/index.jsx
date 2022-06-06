@@ -15,7 +15,9 @@ window.onload = function() {
     const store = createStore(combineReducers({
         editList
     }), composeEnhancers(applyMiddleware(thunkMiddleware, loggerMiddleware)));
+
     // console.log(store.getState());
+
     ReactDOM.render(
         <Provider store={store}>
             <Navigator/>

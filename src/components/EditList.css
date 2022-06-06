@@ -1,3 +1,8 @@
+:root{
+    --attack-width: 90px; 
+    --defense-width: 60px;
+  }
+
 /* sidebar */
 .sidebar {
     width: 15%;
@@ -83,7 +88,7 @@
 
 .block {
     display: inline-block;
-    width: 70px;
+    /* width: 70px; */
     position: absolute;
 }
 
@@ -145,4 +150,41 @@
 .l {
     background-color: crimson;
     color: white;
+}
+
+.block.a {
+    width: var(--defense-width);
+}
+.block.b {
+    width: var(--defense-width);
+}
+.block.c {
+    width: var(--defense-width);
+}
+.block.d {
+    width: var(--defense-width);
+}
+.block.e {
+    width: var(--defense-width);
+}
+.block.f {
+    width: var(--defense-width);
+}
+.block.g {
+    width: var(--attack-width);
+}
+.block.h {
+    width: var(--attack-width);
+}
+.block.i {
+    width: var(--attack-width);
+}
+.block.j {
+    width: var(--attack-width);
+}
+.block.k {
+    width: var(--attack-width);
+}
+.block.l {
+    width: var(--attack-width);
 }

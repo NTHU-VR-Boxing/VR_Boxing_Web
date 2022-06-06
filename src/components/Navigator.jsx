@@ -4,6 +4,7 @@ import {
 	Switch,
 	Route
 } from 'react-router-dom';
+
 import Login from 'components/Login.jsx';
 import NavBar from 'components/NavBar.jsx';
 import List from 'components/List.jsx';
@@ -23,6 +24,12 @@ export default class Navigator extends React.Component {
 						<Login/>
 					</Route>
 					<Route exact path='/list/'>
+						<div style={{display:'flex', flexDirection:'column'}}>
+							<NavBar/>
+							<List/>
+						</div>
+					</Route>
+					<Route exact path='/edit-list/'>
 						<div style={{display:'flex', flexDirection:'column'}}>
 							<NavBar/>
 							<EditList/>
