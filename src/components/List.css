@@ -7,6 +7,22 @@
     height: 0px;
 }
 
+.all-student {
+    height: 80%;
+    overflow-y: auto;
+    position: absolute;
+    width: 100%;
+}
+
+.add-student-button {
+    height: 10%;
+    width: 15%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+}
+
 .student-div {
     height: 50px;
 }

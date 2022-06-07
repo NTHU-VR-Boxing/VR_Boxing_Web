@@ -6,6 +6,7 @@ import loggerMiddleware from 'redux-logger';
 import {Provider} from 'react-redux';
 
 import {editList} from './states/EditList-reducer.js';
+import {list} from './states/List-reducer.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import Navigator from 'components/Navigator.jsx';
@@ -13,7 +14,7 @@ import Navigator from 'components/Navigator.jsx';
 window.onload = function() {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     const store = createStore(combineReducers({
-        editList
+        editList, list
     }), composeEnhancers(applyMiddleware(thunkMiddleware, loggerMiddleware)));
 
     // console.log(store.getState());
