@@ -52,18 +52,14 @@
 
 .mini-card:hover {
     background-color: #F3B61B;
+    color: white;
 }
 
 .word {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    color: black;
     font-weight: bold;
-}
-
-.word:hover {
-    color: white;
 }
 
 .add-button {
@@ -71,4 +67,43 @@
     position: fixed;
     bottom: 0;
     right: 0;
+}
+
+
+/* Record */
+.record {
+    height: 90%;
+    overflow-y: auto;
+    position: absolute;
+    width: 100%;
+}
+
+.all-record {
+    margin-top: 0;
+}
+
+.mini-card-record {
+    background-color: white;
+    width: 200px;
+    height: 50px;
+    border-radius: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.mini-card-record:hover {
+    background-color: #F3B61B;
+    color: white;
+}
+
+.record-word {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    margin: 0;
+}
+
+#replied {
+    background-color: #79FF79;
 }

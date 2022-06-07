@@ -34,32 +34,32 @@ export default class List extends React.Component {
                 <div className='right'>
                     <div className='list container-fluid'>
                         <div className='row row-cols-5 g-4 all-list'>
-                            <div className='col set-height'>
+                            <div className='col'>
                                 <button className='mini-card'>
                                     <p className='word'>組合拳A</p>
                                 </button>
                             </div>
-                            <div className='col set-height'>
+                            <div className='col'>
                                 <button className='mini-card'>
                                     <p className='word'>今天天氣很好今天天氣很好今天天氣很好</p>
                                 </button>
                             </div>
-                            <div className='col set-height'>
+                            <div className='col'>
                                 <button className='mini-card'>
                                     <p className='word'>今天天氣很好今天天氣很好今天天氣很好</p>
                                 </button>
                             </div>
-                            <div className='col set-height'>
+                            <div className='col'>
                                 <button className='mini-card'>
                                     <p className='word'>今天天氣很好今天天氣很好今天天氣很好</p>
                                 </button>
                             </div>
-                            <div className='col set-height'>
+                            <div className='col'>
                                 <button className='mini-card'>
                                     <p className='word'>今天天氣很好今天天氣很好今天天氣很好</p>
                                 </button>
                             </div>
-                            <div className='col set-height'>
+                            <div className='col'>
                                 <button className='mini-card'>
                                     <p className='word'>今天天氣很好今天天氣很好今天天氣很好</p>
                                 </button>
