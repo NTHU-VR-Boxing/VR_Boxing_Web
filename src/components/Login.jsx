@@ -69,7 +69,7 @@ class Login extends React.Component {
                                             </div> */}
                                             <form className="user">
                                                 <div className="text-center">
-                                                    <a className=" btn btn-info btn-user btn-block" href="/register/">Create an Account!</a>
+                                                    <Link className=" btn btn-info btn-user btn-block" to="/register/">Create an Account!</Link>
                                                 </div>
                                             </form>
                                         </div>
