@@ -1,0 +1,113 @@
+
+.background {
+    background-color: #312f30;
+    height: 100vh;
+    width: 100%;
+}
+
+.videoname {
+    margin-top: 2%;
+    float: left; 
+    height: 80vh;
+    width: 50%; 
+    margin-left: 5%;
+}
+
+.feedback {
+    float: right;
+    height: 100vh;
+    width: 30%;
+    margin-right: 5%;
+    margin-top: 2%
+}
+
+.title {
+    color : white;
+    font-size: 30px;
+}
+
+.date {
+    color: white;
+}
+
+.video {
+    background-color: #4D4B4C;
+    height: 60vh;
+    width: 100%;
+}
+
+.result {
+    color : white;
+}
+
+.feedbackarea {
+    background-color: white;
+    border-radius: 50px;
+    float: right;
+    height: 70%;
+    width: 100%;
+}
+.send {
+    background-color: deepskyblue;
+    outline: none;
+    border: none;
+    border-radius: 50px;
+    width: 80px;
+    height: 40px;
+    color: white;
+    margin-left: 5%;
+}
+
+.minute {
+    width: 60px;
+    margin-left: 10%;
+}
+
+.second {
+    width: 60px;
+}
+
+.pleaseenter {
+    margin-left: 10%;
+    color : rgb(75, 75, 75);
+}
+
+.feedbackresponse {
+    margin-left: 10%;
+}
+
+.feedbacktext {
+    height: 30vh;
+}
+
+.inputsummary {
+    margin-left: 10%;
+    width: 50%;
+}
+.delete {
+    background-color: rgb(255, 34, 0);
+    outline: none;
+    border: none;
+    border-radius: 50px;
+    width: 80px;
+    height: 40px;
+    color: white;
+    margin-top: 10%;
+}
+.complete {
+    background-color: rgb(255, 230, 0);
+    outline: none;
+    border: none;
+    border-radius: 50px;
+    width: 80px;
+    height: 40px;
+    color: rgb(0, 0, 0);
+    margin-top: 10%;
+    margin-left: 10px;
+}
+
+.feedbacktext {
+    margin-left: 10%;
+    white-space: pre-wrap;
+}
+
