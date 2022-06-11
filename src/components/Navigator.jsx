@@ -10,6 +10,7 @@ import NavBar from 'components/NavBar.jsx';
 import List from 'components/List.jsx';
 import EditList from 'components/EditList.jsx';
 import Record from './Record.jsx';
+import Register from './Register.jsx';
 
 export default class Navigator extends React.Component {
 	constructor(props) {
@@ -23,6 +24,9 @@ export default class Navigator extends React.Component {
 				<Switch>
 					<Route exact path='/'>
 						<Login/>
+					</Route>
+					<Route exact path='/register/'>
+						<Register/>
 					</Route>
 					<Route exact path='/list/'>
 						<div style={{display:'flex', flexDirection:'column'}}>
