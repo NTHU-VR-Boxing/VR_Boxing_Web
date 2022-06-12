@@ -29,23 +29,27 @@ export function createAccount() {
 }
 
 export function login() {
-    let el = document.querySelector("#register");
+    let el = document.querySelector("#login");
     let formData = new FormData(el);   
 
-    console.log(`Making POST request to: ${baseUrl}/register`);
-    // console.log(formData.get('cname'));
-    // console.log(formData.get('password'));
+    console.log(`Making POST request to: ${baseUrl}/login/coach`);
 
-    axios({
+    return axios({
         method: "post",
         baseURL: baseUrl,
-        url: '/register',
+        url: '/login/coach',
         data: formData,
         headers: { "Content-Type": "multipart/form-data" }
     })
     .then(function (response) {
         //handle success
         console.log(response);
+        console.log(document.cookie);
+
+        return{
+            success: response.data.success,
+            reason: response.data.success ? "" : response.data.reason
+        };
     })
     .catch(function (error) {
         //handle error

@@ -1,15 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, Redirect, withRouter} from "react-router-dom";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from 'reactstrap';
+
+import { login } from '../api/account';
+import { toggleModalReason } from '../states/Login-action';
 
 import '../../public/sb-admin-2.css';
 
 class Login extends React.Component {
+    static propTypes = {
+        modalOpen: PropTypes.bool
+    };
 	
 	constructor(props){
 		super(props);
 
         this.handleClick = this.handleClick.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
         /*
 		this.state = {
 			createAccountModalVisibility: false,
@@ -44,15 +53,16 @@ class Login extends React.Component {
                                                 <h1 className="h3 text-gray-900 mb-4">VR Boxing</h1>
                                             </div>
                                             <iframe name="dummyframe" id="dummyframe" style={{display: "none"}}></iframe>
-                                            <form className="user" target='dummyframe'>
+                                            <form className="user" id="login" target='dummyframe'>
                                                 <div className="form-group">
                                                     <input type="text" className="form-control form-control-user"
-                                                        id="exampleInputEmail" aria-describedby="emailHelp"
+                                                        name='cname'
                                                         placeholder="Username"/>
                                                 </div>
                                                 <div className="form-group">
                                                     <input type="password" className="form-control form-control-user"
-                                                        id="exampleInputPassword" placeholder="Password"/>
+                                                        name='password'
+                                                        placeholder="Password"/>
                                                 </div>
                                                 {/* <div class="form-group">
                                                     <div class="custom-control custom-checkbox small">
@@ -61,9 +71,13 @@ class Login extends React.Component {
                                                             Me</label>
                                                     </div>
                                                 </div> */}
-                                                {/* TODO: 改成不能直接link過去，要驗證成功 */}
-                                                {/* <Link to="/list/" className="btn btn-primary btn-user btn-block" onClick={this.handleClick}>Login</Link> */}
                                                 <button className="btn btn-primary btn-user btn-block" onClick={this.handleClick}>Login</button>
+                                                <Modal isOpen={this.props.modalOpen} toggle={this.toggleModal}>
+                                                    <ModalHeader toggle={this.toggleModal}>Fail to Login</ModalHeader>
+                                                    <ModalBody>
+                                                        <p>{this.props.reason}</p>
+                                                    </ModalBody>
+                                                </Modal>
                                             </form>
                                             <hr/>
                                             {/* <div class="text-center">
@@ -90,9 +104,21 @@ class Login extends React.Component {
 	}
 
     handleClick(e) {
-        this.props.history.push("/list/");
+        login().then((res)=>{
+            if(res.success === true){
+                this.props.history.push("/list/");
+            }
+            else{
+                this.props.dispatch(toggleModalReason(res.reason));
+            }
+        })
+    }
+
+    toggleModal() {
+        this.props.dispatch(toggleModalReason(''));
     }
 }
 
 export default withRouter(connect(state => ({
+    ...state.login
 }))(Login));
