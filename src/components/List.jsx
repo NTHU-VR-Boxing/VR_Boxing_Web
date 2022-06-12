@@ -121,7 +121,7 @@ class List extends React.Component {
 
     handleAddStudent(e) {
         let target = document.querySelector("#new-student");
-        if(target.value != ''){
+        if(target.value !== ''){
             this.props.dispatch(toggleModalAddStudent());
              // TODO: add to backend
         }
