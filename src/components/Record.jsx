@@ -1,9 +1,11 @@
 import React from 'react';
 import { Badge } from 'reactstrap';
+import {Link } from "react-router-dom";
+import {connect} from 'react-redux';
 
 import './List.css'
 
-export default class Record extends React.Component {
+class Record extends React.Component {
     constructor(props) {
         super(props);
 
@@ -29,15 +31,17 @@ export default class Record extends React.Component {
                     <div className='record container-fluid'>
                         <div className='row row-cols-5 g-4 all-record'>
                             <div className='col'>
-                                <button className='mini-card-record' onClick={this.handleRecordClick}>
-                                    <p className='record-word'>組合拳</p>
-                                    <p className='date'>2022/06/07</p>
-                                </button>
+                                <Link to='/edit-record/'>
+                                    <button className='mini-card-record' onClick={this.handleRecordClick}>
+                                        <p className='record-word'>組合拳</p>
+                                        <p>2022/06/07</p>
+                                    </button>
+                                </Link>
                             </div>
                             <div className='col'>
                                 <button className='mini-card-record' id='replied' onClick={this.handleRecordClick}>
                                     <p className='record-word'>組合拳B</p>
-                                    <p className='date'>2022/06/07</p>
+                                    <p>2022/06/07</p>
                                 </button>
                             </div>
                             {/* have message number */}
@@ -83,5 +87,9 @@ export default class Record extends React.Component {
     
     handleRecordClick(e) {
         console.log("on record click!");
-    }
+    }   
 }
+
+export default connect(state => ({
+    ...state.record
+}))(Record);

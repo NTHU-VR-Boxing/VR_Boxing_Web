@@ -28,7 +28,7 @@ class List extends React.Component {
             backgroundColor: "white",
             width: "150px"
         }
-        console.log(this.props);
+      
         return (
             <div className='d-flex flex-row' style={{position: "relative"}}>
                 <div className='sidebar'>

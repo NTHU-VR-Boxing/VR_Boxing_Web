@@ -105,6 +105,7 @@
     border-radius: 20px;
     text-align: center;
     position: relative;
+    color: black;
 }
 
 .mini-card-record:hover {
