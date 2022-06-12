@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
+import { Link, Redirect, withRouter} from "react-router-dom";
 
 import '../../public/sb-admin-2.css';
 
@@ -43,7 +43,8 @@ class Login extends React.Component {
                                             <div className="text-center">
                                                 <h1 className="h3 text-gray-900 mb-4">VR Boxing</h1>
                                             </div>
-                                            <form className="user">
+                                            <iframe name="dummyframe" id="dummyframe" style={{display: "none"}}></iframe>
+                                            <form className="user" target='dummyframe'>
                                                 <div className="form-group">
                                                     <input type="text" className="form-control form-control-user"
                                                         id="exampleInputEmail" aria-describedby="emailHelp"
@@ -61,7 +62,8 @@ class Login extends React.Component {
                                                     </div>
                                                 </div> */}
                                                 {/* TODO: 改成不能直接link過去，要驗證成功 */}
-                                                <Link to="/list/" className="btn btn-primary btn-user btn-block" onClick={this.handleClick}>Login</Link>
+                                                {/* <Link to="/list/" className="btn btn-primary btn-user btn-block" onClick={this.handleClick}>Login</Link> */}
+                                                <button className="btn btn-primary btn-user btn-block" onClick={this.handleClick}>Login</button>
                                             </form>
                                             <hr/>
                                             {/* <div class="text-center">
@@ -88,9 +90,9 @@ class Login extends React.Component {
 	}
 
     handleClick(e) {
-        console.log("Login click!");
+        this.props.history.push("/list/");
     }
 }
 
-export default connect(state => ({
-}))(Login);
+export default withRouter(connect(state => ({
+}))(Login));

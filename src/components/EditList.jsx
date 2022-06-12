@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { Form, FormGroup, Label, Input, FormFeedback, FormText, Col } from 'reactstrap';
-import creatHistory from 'history/createBrowserHistory';
+import { withRouter } from "react-router-dom";
 
 import Interactable from './Interactable.jsx';
 import { Timeline } from './Timeline.jsx';
@@ -11,6 +11,7 @@ import { addBlock, moveBlock } from '../states/EditList-action.js';
 import { SaveButton } from './PageManager.jsx';
 
 import 'components/EditList.css';
+import { InputRow } from 'aws-amplify-react';
 
 class EditList extends React.Component {
     static propTypes = {
@@ -176,14 +177,13 @@ class EditList extends React.Component {
     } 
 
     handleSaveClick(e) {
-        const history = creatHistory();
-        history.goBack();
+        this.props.history.goBack();
     }
 }
 
-export default connect(state => ({
+export default withRouter(connect(state => ({
     ...state.editList
-}))(EditList);
+}))(EditList));
 
 
 function getFistName(fist_type){

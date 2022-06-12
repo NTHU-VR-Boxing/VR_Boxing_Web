@@ -1,14 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { FormText } from 'reactstrap';
-import creatHistory from 'history/createBrowserHistory';
 
 import { createAccount } from '../api/account.js';
 
 import '../../public/sb-admin-2.css';
 
-class Login extends React.Component {
+class Register extends React.Component {
 	
 	constructor(props){
 		super(props);
@@ -93,10 +92,9 @@ class Login extends React.Component {
     handleClick(e) {
         createAccount(); 
         // TODO: 判斷有沒有錯誤, 目前先預設都正確, 之後改成asyncronize
-        const history = creatHistory();
-        history.goBack();
+        this.props.history.goBack();
     }
 }
 
-export default connect(state => ({
-}))(Login);
+export default withRouter(connect(state => ({
+}))(Register));
