@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, FormFeedback } from 'reactstrap';
 
 import { AddListButton } from './PageManager.jsx';
-import { toggleModalAddStudent } from '../states/List-action.js';
+import { listStudent, toggleModalAddStudent } from '../states/List-action.js';
 
 import './List.css'
 
 class List extends React.Component {
     static propTypes = {
-        modalAddStudent: PropTypes.bool
+        modalAddStudent: PropTypes.bool,
+        students: PropTypes.array,
+        sessions: PropTypes.array
     };
 
     constructor(props) {
@@ -18,12 +20,26 @@ class List extends React.Component {
 
         this.handleStudentClick = this.handleStudentClick.bind(this);
         this.handleAddStudentClick = this.handleAddStudentClick.bind(this);
+        this.handleAddStudent = this.handleAddStudent.bind(this);
+        this.cancelAlert = this.cancelAlert.bind(this);
+    }
+
+    componentDidMount() { // list students and sessions
+        // TODO
+        this.props.dispatch(listStudent());
     }
     
     render() {
-        const student_children = (
-            <div></div>
-        );
+        let student = null;
+        const {students} = this.props;
+        if (students.length > 0) {
+            student = students.map((s) => (
+                    <div className='student-div' key={s.sname}>
+                        <button className='student' onClick={this.handleStudentClick}>{s.sname}</button>
+                    </div>
+            ));
+        }
+
         const style = {
             backgroundColor: "white",
             width: "150px"
@@ -36,22 +52,17 @@ class List extends React.Component {
                         <div className='student-div'>
                             <button className='student' onClick={this.handleStudentClick}>全部</button>
                         </div>
-                        <div className='student-div'>
-                            <button className='student' onClick={this.handleStudentClick}>喵喵</button>
-                        </div>
-                        <div className='student-div'>
-                            <button className='student' onClick={this.handleStudentClick}>汪汪</button>
-                        </div>
+                        {student}
                     </div>
                     <div className='add-student-button'>
                         <button className='clickButton' style={style} onClick={this.handleAddStudentClick}>新增學員</button>
                         <Modal isOpen={this.props.modalAddStudent} toggle={this.handleAddStudentClick}>
                             <ModalHeader toggle={this.handleAddStudentClick}>新增學員</ModalHeader>
                             <ModalBody>
-                                <Input type='text' placeholder='請輸入名稱'></Input>
+                                <Input type='text' placeholder='請輸入名稱' id='new-student' onClick={this.cancelAlert}></Input>
                             </ModalBody>
                             <ModalFooter>
-                                <Button color="primary" onClick={this.handleAddStudentClick}>送出</Button>{' '}
+                                <Button color="primary" onClick={this.handleAddStudent}>送出</Button>
                                 <Button color="secondary" onClick={this.handleAddStudentClick}>取消</Button>
                             </ModalFooter>
                         </Modal>
@@ -106,6 +117,22 @@ class List extends React.Component {
 
     handleAddStudentClick(e) {
         this.props.dispatch(toggleModalAddStudent());
+    }
+
+    handleAddStudent(e) {
+        let target = document.querySelector("#new-student");
+        if(target.value != ''){
+            this.props.dispatch(toggleModalAddStudent());
+             // TODO: add to backend
+        }
+        else{
+            console.log("Empty input.");
+            target.style.border = "red solid 2px";
+        }
+    }
+
+    cancelAlert(e) {
+        e.target.style.border = "#E0E0E0 solid 2px";
     }
 }
 

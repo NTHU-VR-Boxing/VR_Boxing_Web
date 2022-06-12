@@ -39,7 +39,6 @@ export function post(state = initPostState, action) {
                 ...state,
                 posts: newPosts,
             };
-        // TODO
         case '@POST/END_CREATE_POST':
             var newPosts = state.posts.slice();
             newPosts.unshift(action.post);

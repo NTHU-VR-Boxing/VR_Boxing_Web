@@ -46,7 +46,6 @@ export function listPosts(ts, id) {
 
 export function createPost(text, imgUrl, ts, location, id) {
     return (dispatch, getState) => {
-        //TODO
         dispatch(startLoading());
 
         return createPostFromApi(text, imgUrl, ts, location, id).then(post => {

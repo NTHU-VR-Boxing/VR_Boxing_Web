@@ -8,10 +8,9 @@ import { withRouter } from "react-router-dom";
 import Interactable from './Interactable.jsx';
 import { Timeline } from './Timeline.jsx';
 import { addBlock, moveBlock } from '../states/EditList-action.js';
-import { SaveButton } from './PageManager.jsx';
+import { createSession } from '../api/session.js';
 
 import 'components/EditList.css';
-import { InputRow } from 'aws-amplify-react';
 
 class EditList extends React.Component {
     static propTypes = {
@@ -106,31 +105,31 @@ class EditList extends React.Component {
                 <div className='right'>
                     <div className='board d-flex'>
                         <div className='info'>
-                            <Form style={{padding: "20px"}}>
+                            <Form style={{padding: "20px"}} id='session-goal'>
                                 <FormGroup className='mb-5'>
                                     <Label for='name' style={{color: "white", fontSize:"x-large"}}>菜單名稱</Label>
-                                    <Input type='text'/>
+                                    <Input type='text' name='name'/>
                                 </FormGroup>
                                 <FormGroup row style={{color: "white"}}>
                                     <legend style={{color: "white"}}>設定目標</legend>
                                     <FormGroup className='d-flex flex-row'>
-                                        <Label for='validHit'>有效打擊</Label>
+                                        <Label for='hit'>有效打擊</Label>
                                         <Col >
-                                            <Input type="text" name="validHit" id="validHit" bsSize="sm"/>
+                                            <Input type="text" name="hit" id="hit" bsSize="sm"/>
                                         </Col>
                                         <Label style={{flexGrow: "2"}}>次</Label>
                                     </FormGroup>
                                     <FormGroup className='d-flex flex-row'>
-                                        <Label for='???'>成功格檔</Label>
+                                        <Label for='block'>成功格檔</Label>
                                         <Col >
-                                            <Input type="text" name="???" id="???" bsSize="sm"/>
+                                            <Input type="text" name="block" id="block" bsSize="sm"/>
                                         </Col>
                                         <Label style={{flexGrow: "2"}}>次</Label>
                                     </FormGroup>
                                     <FormGroup className='d-flex flex-row'>
-                                        <Label for='???'>成功閃避</Label>
+                                        <Label for='dodge'>成功閃避</Label>
                                         <Col >
-                                            <Input type="text" name="???" id="???" bsSize="sm"/>
+                                            <Input type="text" name="dodge" id="dodge" bsSize="sm"/>
                                         </Col>
                                         <Label style={{flexGrow: "2"}}>次</Label>
                                     </FormGroup>
@@ -177,7 +176,9 @@ class EditList extends React.Component {
     } 
 
     handleSaveClick(e) {
-        this.props.history.goBack();
+        createSession(this.props.timeline).then(()=>{
+            this.props.history.goBack();
+        });
     }
 }
 

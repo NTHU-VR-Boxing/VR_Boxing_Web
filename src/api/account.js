@@ -43,13 +43,28 @@ export function login() {
     })
     .then(function (response) {
         //handle success
-        console.log(response);
         console.log(document.cookie);
 
         return{
             success: response.data.success,
             reason: response.data.success ? "" : response.data.reason
         };
+    })
+    .catch(function (error) {
+        //handle error
+        console.log(error);
+    });
+}
+
+export function listStudent() {
+    const url = `${baseUrl}/users/student`;
+    console.log(`Making GET request to: ${url}`);
+
+    return axios.get(url)
+    .then(function (response) {
+        //handle success
+        console.log(response);
+        return response.data.result;
     })
     .catch(function (error) {
         //handle error
