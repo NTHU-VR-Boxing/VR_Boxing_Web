@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
-import { FormText } from 'reactstrap';
+import { FormText, Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 import { createAccount } from '../api/account.js';
+import { toggleModalReason } from '../states/Login-action';
 
 import '../../public/sb-admin-2.css';
 
@@ -13,6 +14,7 @@ class Register extends React.Component {
 		super(props);
 
         this.handleClick = this.handleClick.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
         /*
 		this.state = {
 			createAccountModalVisibility: false,
@@ -73,6 +75,12 @@ class Register extends React.Component {
                                                 </div> */}
                                                 <div style={{height: "40px", color: "white"}}>123</div>
                                                 <button className="btn btn-primary btn-user btn-block" onClick={this.handleClick}>Register Account</button>
+                                                <Modal isOpen={this.props.modalOpen} toggle={this.toggleModal}>
+                                                    <ModalHeader toggle={this.toggleModal}>Fail to Register</ModalHeader>
+                                                    <ModalBody>
+                                                        <p>{this.props.reason}</p>
+                                                    </ModalBody>
+                                                </Modal>
                                             </form>
                                         </div>
                                     </div>
@@ -89,12 +97,29 @@ class Register extends React.Component {
 		);
 	}
 
+    // handleClick(e) {
+    //     createAccount(); 
+    //     // TODO: 判斷有沒有錯誤, 目前先預設都正確, 之後改成asyncronize
+    //     this.props.history.goBack();
+    // }
+
     handleClick(e) {
-        createAccount(); 
-        // TODO: 判斷有沒有錯誤, 目前先預設都正確, 之後改成asyncronize
-        this.props.history.goBack();
+        createAccount().then((res)=>{
+            if(res.success === true){
+                this.props.history.goBack();
+            }
+            else{
+                this.props.dispatch(toggleModalReason(res.reason));
+            }
+        })
     }
+
+    toggleModal() {
+        this.props.dispatch(toggleModalReason(''));
+    }
+
 }
 
 export default withRouter(connect(state => ({
+    ...state.register
 }))(Register));
