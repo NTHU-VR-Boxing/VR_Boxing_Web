@@ -56,7 +56,7 @@ class Login extends React.Component {
                                             <form className="user" id="login" target='dummyframe'>
                                                 <div className="form-group">
                                                     <input type="text" className="form-control form-control-user"
-                                                        name='cname'
+                                                        name='cname' id='login-cname'
                                                         placeholder="Username"/>
                                                 </div>
                                                 <div className="form-group">
@@ -106,6 +106,7 @@ class Login extends React.Component {
     handleClick(e) {
         login().then((res)=>{
             if(res.success === true){
+                username = document.querySelector("#login-cname").value;
                 this.props.history.push("/list/");
             }
             else{
@@ -122,3 +123,5 @@ class Login extends React.Component {
 export default withRouter(connect(state => ({
     ...state.login
 }))(Login));
+
+export var username;

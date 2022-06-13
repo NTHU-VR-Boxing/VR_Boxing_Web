@@ -10,6 +10,7 @@ import {editList} from './states/EditList-reducer.js';
 import {list} from './states/List-reducer.js';
 import {record} from './states/Record-reducer.js';
 import { login } from './states/Login-reducer.js';
+import { register } from './states/Register-reducer.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import Navigator from 'components/Navigator.jsx';
@@ -17,10 +18,10 @@ import Navigator from 'components/Navigator.jsx';
 window.onload = function() {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     const store = createStore(combineReducers({
-        editList, list, record, login
+        editList, list, record, login, register
     }), composeEnhancers(applyMiddleware(thunkMiddleware, loggerMiddleware)));
 
-    // axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
     // console.log(store.getState());
 
     ReactDOM.render(

@@ -11,7 +11,7 @@ export function createAccount() {
     // console.log(formData.get('cname'));
     // console.log(formData.get('password'));
 
-    axios({
+    return axios({
         method: "post",
         baseURL: baseUrl,
         url: '/register',
@@ -20,7 +20,10 @@ export function createAccount() {
     })
     .then(function (response) {
         //handle success
-        console.log(response);
+        return{
+            success: response.data.success,
+            reason: response.data.success ? "" : response.data.reason
+        };
     })
     .catch(function (error) {
         //handle error
@@ -43,8 +46,6 @@ export function login() {
     })
     .then(function (response) {
         //handle success
-        console.log(document.cookie);
-
         return{
             success: response.data.success,
             reason: response.data.success ? "" : response.data.reason
@@ -63,8 +64,27 @@ export function listStudent() {
     return axios.get(url)
     .then(function (response) {
         //handle success
-        console.log(response);
         return response.data.result;
+    })
+    .catch(function (error) {
+        //handle error
+        console.log(error);
+    });
+}
+
+export function addStudent(sname) {
+    console.log(`Making POST request to: ${baseUrl}/users/student`);
+
+    return axios({
+        method: "post",
+        baseURL: baseUrl,
+        url: '/users/student',
+        data: {sname: sname},
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(function (response) {
+        //handle success
+        console.log(response);
     })
     .catch(function (error) {
         //handle error

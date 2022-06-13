@@ -15,6 +15,8 @@ import {
     Container} from 'reactstrap';
 import { Link } from "react-router-dom";
 
+import { username } from './Login.jsx';
+
 import './NavBar.css';
 
 
@@ -46,7 +48,7 @@ class NavBar extends React.Component {
                                         <NavLink id="record" tag={Link} to="/record/">影片回饋</NavLink>
                                     </NavItem>
                                     <UncontrolledDropdown nav inNavbar style={{flexGrow: "2", alignSelf: "flex-end"}}>
-                                        <DropdownToggle nav caret id="userName" style={{textAlign: "right"}}>User</DropdownToggle>
+                                        <DropdownToggle nav caret id="userName" style={{textAlign: "right"}}>{username}</DropdownToggle>
                                         <DropdownMenu right>
                                         <DropdownItem>
                                             登出

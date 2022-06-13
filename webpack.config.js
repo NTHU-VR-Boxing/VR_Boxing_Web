@@ -101,6 +101,7 @@ module.exports = {
         contentBase: distPath,
         compress: true,
         port: 8080,
+        https: true,
         historyApiFallback: true
     },
     devtool: 'source-map'

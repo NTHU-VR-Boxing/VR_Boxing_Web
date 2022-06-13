@@ -45,3 +45,20 @@ export function createSession(timeline) {
         console.log(error);
     });
 }
+
+export function listSession() {
+    // TODO: cname
+    // const url = `${baseUrl}/practices/sessions/{cname}`;
+    const url = `${baseUrl}/practices/sessions`;
+    console.log(`Making GET request to: ${url}`);
+
+    return axios.get(url)
+    .then(function (response) {
+        //handle success
+        return response.data.result;
+    })
+    .catch(function (error) {
+        //handle error
+        console.log(error);
+    });
+}

@@ -1,17 +1,15 @@
-import { listStudent as listStudentFromApi} from "../api/account.js";
+import { 
+    listStudent as listStudentFromApi,
+    addStudent as addStudentFromApi
+} from "../api/account.js";
+import { listSession as listSessionFromApi } from "../api/session.js";
+
 
 export function toggleModalAddStudent() {
     return {
         type: '@MODAL/ADD_STUDENT'
     };
 };
-
-function endListStudent(students) {
-    return {
-        type: '@STUDENT/LIST',
-        students: students
-    }
-}
 
 export function listStudent() {
     console.log("Start listing student...");
@@ -20,6 +18,44 @@ export function listStudent() {
             dispatch(endListStudent(res));
         }).catch((err) => {
             console.log('Error listing students', err);
-        }).then(console.log("End loading students."));
+        }).then(console.log("End listing students."));
+    } 
+}
+
+function endListStudent(students) { // update state
+    return {
+        type: '@STUDENT/LIST',
+        students: students
+    }
+}
+
+export function AddStudent(sname) {
+    console.log("Start adding student...");
+    return (dispatch) => {
+        addStudentFromApi(sname).then(() => {
+            console.log("End adding student.");
+            dispatch(listStudent());
+        }).catch((err) => {
+            console.log('Error listing students', err);
+        }).then(console.log("End listing students."));
+    }
+}
+
+
+function endListSession(sessions){ // update state
+    return {
+        type: '@SESSION/LIST',
+        sessions: sessions
+    }
+}
+
+export function listSession() {
+    console.log("Start listing sessions...");
+    return (dispatch) =>{
+        listSessionFromApi().then((sessions) => {
+            dispatch(endListSession(sessions));
+        }).catch((err) => {
+            console.log('Error listing sessions', err);
+        }).then(console.log("End listing sessions."));
     } 
 }

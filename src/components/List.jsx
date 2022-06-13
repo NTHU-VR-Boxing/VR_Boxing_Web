@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, FormFeedback } from 'reactstrap';
 
 import { AddListButton } from './PageManager.jsx';
-import { listStudent, toggleModalAddStudent } from '../states/List-action.js';
+import { listStudent, toggleModalAddStudent, AddStudent, listSession } from '../states/List-action.js';
 
 import './List.css'
 
@@ -25,8 +25,8 @@ class List extends React.Component {
     }
 
     componentDidMount() { // list students and sessions
-        // TODO
         this.props.dispatch(listStudent());
+        this.props.dispatch(listSession());
     }
     
     render() {
@@ -37,6 +37,25 @@ class List extends React.Component {
                     <div className='student-div' key={s.sname}>
                         <button className='student' onClick={this.handleStudentClick}>{s.sname}</button>
                     </div>
+            ));
+        }
+
+        let session = null;
+        const {sessions} = this.props;
+        if(sessions.length === 0) {
+            session = (
+                <div>
+                    <p>沒有已建立的清單...</p>
+                </div>
+            );
+        }
+        else {
+            session = sessions.map((ses) => (
+                <div className='col' key={ses.practice_session_id}>
+                    <button className='mini-card'>
+                        <p className='word'>{ses.create_time}</p>
+                    </button>
+                </div>
             ));
         }
 
@@ -71,36 +90,7 @@ class List extends React.Component {
                 <div className='right'>
                     <div className='list container-fluid'>
                         <div className='row row-cols-5 g-4 all-list'>
-                            <div className='col'>
-                                <button className='mini-card'>
-                                    <p className='word'>組合拳A</p>
-                                </button>
-                            </div>
-                            <div className='col'>
-                                <button className='mini-card'>
-                                    <p className='word'>今天天氣很好今天天氣很好今天天氣很好</p>
-                                </button>
-                            </div>
-                            <div className='col'>
-                                <button className='mini-card'>
-                                    <p className='word'>今天天氣很好今天天氣很好今天天氣很好</p>
-                                </button>
-                            </div>
-                            <div className='col'>
-                                <button className='mini-card'>
-                                    <p className='word'>今天天氣很好今天天氣很好今天天氣很好</p>
-                                </button>
-                            </div>
-                            <div className='col'>
-                                <button className='mini-card'>
-                                    <p className='word'>今天天氣很好今天天氣很好今天天氣很好</p>
-                                </button>
-                            </div>
-                            <div className='col'>
-                                <button className='mini-card'>
-                                    <p className='word'>今天天氣很好今天天氣很好今天天氣很好</p>
-                                </button>
-                            </div>
+                            {session}
                         </div>
                     </div>
                     <div className='add-button'>
@@ -124,6 +114,7 @@ class List extends React.Component {
         if(target.value !== ''){
             this.props.dispatch(toggleModalAddStudent());
              // TODO: add to backend
+            this.props.dispatch(AddStudent(target.value));
         }
         else{
             console.log("Empty input.");
