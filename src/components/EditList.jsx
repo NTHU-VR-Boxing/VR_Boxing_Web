@@ -7,8 +7,8 @@ import { withRouter } from "react-router-dom";
 
 import Interactable from './Interactable.jsx';
 import { Timeline } from './Timeline.jsx';
-import { addBlock, moveBlock } from '../states/EditList-action.js';
-import { createSession } from '../api/session.js';
+import { addBlock, moveBlock, initSession } from '../states/EditList-action.js';
+import { createSession, listSessionContent } from '../api/session.js';
 
 import 'components/EditList.css';
 
@@ -20,11 +20,21 @@ class EditList extends React.Component {
             fistType: PropTypes.string,
             timeStart: PropTypes.number
         }))
+
     };
 
     constructor(props) {
         super(props);
 
+        const { id } = this.props.match.params;
+        console.log(id);
+        if(id){
+            listSessionContent(id).then((res) => {
+                console.log(res);
+                this.props.dispatch(initSession(res.arrangement.name, res.goal.hit, res.goal.block, res.goal.dodge, res.arrangement.timeline));
+            })
+        }
+        
         this.handleBlockClick = this.handleBlockClick.bind(this);
         this.handleSaveClick = this.handleSaveClick.bind(this)
 
@@ -53,6 +63,12 @@ class EditList extends React.Component {
             }
         };
     }
+
+    // componentDidMount() {
+    //     const { id } = this.props.match.params;
+    //     console.log(id);
+        
+    // }
     
     render() {
         const {timeline} = this.props;
@@ -75,7 +91,7 @@ class EditList extends React.Component {
                 );
             });
         }
-
+      
         return (
             <div className='d-flex flex-row'>
                 <div className='sidebar'>
@@ -108,28 +124,28 @@ class EditList extends React.Component {
                             <Form style={{padding: "20px"}} id='session-goal'>
                                 <FormGroup className='mb-5'>
                                     <Label for='name' style={{color: "white", fontSize:"x-large"}}>菜單名稱</Label>
-                                    <Input type='text' name='name'/>
+                                    <Input type='text' name='name' defaultValue={this.props.name}/>
                                 </FormGroup>
                                 <FormGroup row style={{color: "white"}}>
                                     <legend style={{color: "white"}}>設定目標</legend>
                                     <FormGroup className='d-flex flex-row'>
                                         <Label for='hit'>有效打擊</Label>
                                         <Col >
-                                            <Input type="text" name="hit" id="hit" bsSize="sm"/>
+                                            <Input type="text" name="hit" id="hit" bsSize="sm" defaultValue={this.props.hit}/>
                                         </Col>
                                         <Label style={{flexGrow: "2"}}>次</Label>
                                     </FormGroup>
                                     <FormGroup className='d-flex flex-row'>
                                         <Label for='block'>成功格檔</Label>
                                         <Col >
-                                            <Input type="text" name="block" id="block" bsSize="sm"/>
+                                            <Input type="text" name="block" id="block" bsSize="sm" defaultValue={this.props.block}/>
                                         </Col>
                                         <Label style={{flexGrow: "2"}}>次</Label>
                                     </FormGroup>
                                     <FormGroup className='d-flex flex-row'>
                                         <Label for='dodge'>成功閃避</Label>
                                         <Col >
-                                            <Input type="text" name="dodge" id="dodge" bsSize="sm"/>
+                                            <Input type="text" name="dodge" id="dodge" bsSize="sm" defaultValue={this.props.dodge}/>
                                         </Col>
                                         <Label style={{flexGrow: "2"}}>次</Label>
                                     </FormGroup>

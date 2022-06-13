@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, FormFeedback } from 'reactstrap';
 
 import { AddListButton } from './PageManager.jsx';
@@ -22,11 +23,12 @@ class List extends React.Component {
         this.handleAddStudentClick = this.handleAddStudentClick.bind(this);
         this.handleAddStudent = this.handleAddStudent.bind(this);
         this.cancelAlert = this.cancelAlert.bind(this);
+        this.handleSessionClick = this.handleSessionClick.bind(this);
     }
 
     componentDidMount() { // list students and sessions
         this.props.dispatch(listStudent());
-        this.props.dispatch(listSession());
+        this.props.dispatch(listSession(getUsername()));
     }
     
     render() {
@@ -51,8 +53,8 @@ class List extends React.Component {
         }
         else {
             session = sessions.map((ses) => (
-                <div className='col' key={ses.practice_session_id}>
-                    <button className='mini-card'>
+                <div className='col' key={ses.practice_session_id} id={ses.practice_session_id}>
+                    <button className='mini-card' onClick={this.handleSessionClick}>
                         <p className='word'>{ses.create_time}</p>
                     </button>
                 </div>
@@ -125,8 +127,20 @@ class List extends React.Component {
     cancelAlert(e) {
         e.target.style.border = "#E0E0E0 solid 2px";
     }
+
+    handleSessionClick(e) {
+        // console.log(e.target.parentElement.parentNode.id)
+        this.props.history.push(`/edit-list/${e.target.parentElement.parentNode.id}`);
+    }
 }
 
-export default connect(state => ({
+export default withRouter(connect(state => ({
     ...state.list
-}))(List);
+}))(List));
+
+function getUsername() {
+    let name = document.cookie;
+    name = name.substring(10);
+    return name;
+    // console.log(name);
+}

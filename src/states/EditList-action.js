@@ -14,3 +14,14 @@ export function moveBlock(id, timeStart) {
         timeStart
     };
 };
+
+export function initSession(name, hit, block, dodge, timeline) {
+    return {
+        type: 'INIT_SESSION',
+        name,
+        hit,
+        block,
+        dodge,
+        timeline
+    }
+}

@@ -6,16 +6,16 @@ export function createSession(timeline) {
     let el = document.querySelector("#session-goal");
     let formData = new FormData(el);   
 
-    console.log(formData.get('name'));
-    console.log(formData.get('hit'));
-    console.log(formData.get('block'));
-    console.log(formData.get('dodge'));
+    // console.log(formData.get('name'));
+    // console.log(formData.get('hit'));
+    // console.log(formData.get('block'));
+    // console.log(formData.get('dodge'));
 
     // timeline
     timeline.forEach(element => {
         delete element.id;
     });
-    console.log(timeline);
+    // console.log(timeline);
 
     console.log(`Making POST request to: ${baseUrl}/practices/session`);
 
@@ -46,10 +46,24 @@ export function createSession(timeline) {
     });
 }
 
-export function listSession() {
-    // TODO: cname
-    // const url = `${baseUrl}/practices/sessions/{cname}`;
-    const url = `${baseUrl}/practices/sessions`;
+export function listSession(cname) {
+    const url = `${baseUrl}/practices/sessions/${cname}`;
+    // const url = `${baseUrl}/practices/sessions`;
+    console.log(`Making GET request to: ${url}`);
+
+    return axios.get(url)
+    .then(function (response) {
+        //handle success
+        return response.data.result;
+    })
+    .catch(function (error) {
+        //handle error
+        console.log(error);
+    });
+}
+
+export function listSessionContent(id) {
+    const url = `${baseUrl}/practices/session/${id}`;
     console.log(`Making GET request to: ${url}`);
 
     return axios.get(url)

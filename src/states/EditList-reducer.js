@@ -1,5 +1,9 @@
 const initEditListState = {
-    timeline: []
+    timeline: [],
+    name: '',
+    hit: 0,
+    block: 0, 
+    dodge: 0
 };
 
 export function editList(state = initEditListState, action) {
@@ -28,6 +32,15 @@ export function editList(state = initEditListState, action) {
             return{
                 ...state,
                 timeline: new_timeline
+            }
+        case 'INIT_SESSION':
+            return {
+                ...state,
+                name: action.name,
+                hit: action.hit,
+                block: action.block,
+                dodge: action.dodge,
+                timeline: action.timeline
             }
         default:
             return state;

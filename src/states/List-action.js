@@ -49,10 +49,10 @@ function endListSession(sessions){ // update state
     }
 }
 
-export function listSession() {
+export function listSession(username) {
     console.log("Start listing sessions...");
     return (dispatch) =>{
-        listSessionFromApi().then((sessions) => {
+        listSessionFromApi(username).then((sessions) => {
             dispatch(endListSession(sessions));
         }).catch((err) => {
             console.log('Error listing sessions', err);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, Redirect, withRouter} from "react-router-dom";
+import { Link, withRouter} from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from 'reactstrap';
 
 import { login } from '../api/account';
@@ -106,7 +106,7 @@ class Login extends React.Component {
     handleClick(e) {
         login().then((res)=>{
             if(res.success === true){
-                username = document.querySelector("#login-cname").value;
+                document.cookie = `username: ${document.querySelector("#login-cname").value}`;
                 this.props.history.push("/list/");
             }
             else{
@@ -124,4 +124,3 @@ export default withRouter(connect(state => ({
     ...state.login
 }))(Login));
 
-export var username;

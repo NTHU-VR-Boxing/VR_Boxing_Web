@@ -41,6 +41,12 @@ export default class Navigator extends React.Component {
 							<EditList/>
 						</div>
 					</Route>
+					<Route path='/edit-list/:id'>
+						<div style={{display:'flex', flexDirection:'column'}}>
+							<NavBar/>
+							<EditList/>
+						</div>
+					</Route>
 					<Route exact path='/record/'>
 						<div style={{display:'flex', flexDirection:'column'}}>
 							<NavBar/>

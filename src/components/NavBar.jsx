@@ -15,8 +15,6 @@ import {
     Container} from 'reactstrap';
 import { Link } from "react-router-dom";
 
-import { username } from './Login.jsx';
-
 import './NavBar.css';
 
 
@@ -48,7 +46,7 @@ class NavBar extends React.Component {
                                         <NavLink id="record" tag={Link} to="/record/">影片回饋</NavLink>
                                     </NavItem>
                                     <UncontrolledDropdown nav inNavbar style={{flexGrow: "2", alignSelf: "flex-end"}}>
-                                        <DropdownToggle nav caret id="userName" style={{textAlign: "right"}}>{username}</DropdownToggle>
+                                        <DropdownToggle nav caret id="userName" style={{textAlign: "right"}}>{getUsername()}</DropdownToggle>
                                         <DropdownMenu right>
                                         <DropdownItem>
                                             登出
@@ -67,3 +65,11 @@ class NavBar extends React.Component {
 
 export default connect(state => ({
 }))(NavBar);
+
+function getUsername() {
+    let name = document.cookie;
+    name = name.substring(10);
+    return name;
+    // console.log(name);
+}
+
