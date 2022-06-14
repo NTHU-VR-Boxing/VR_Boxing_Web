@@ -7,6 +7,10 @@
     height: 0px;
 }
 
+.student.select {
+    background-color: #F3B61B;
+}
+
 .all-student {
     height: 80%;
     overflow-y: auto;

@@ -3,6 +3,9 @@ import { Badge } from 'reactstrap';
 import {Link } from "react-router-dom";
 import {connect} from 'react-redux';
 
+import { listStudent } from '../states/List-action.js';
+import { changeSelect } from '../states/Record-action.js';
+
 import './List.css'
 
 class Record extends React.Component {
@@ -10,22 +13,38 @@ class Record extends React.Component {
         super(props);
 
         this.handleRecordClick = this.handleRecordClick.bind(this);
+        this.handleStudentClick = this.handleStudentClick.bind(this);
 
     }
-    
+
+    componentDidMount(){
+        // this.props.dispatch(listStudent());
+    }
+
     render() {
+        let student = null;
+        const {students} = this.props;
+        if (students.length > 0) {
+            student = students.map((s) => (
+                    <div className='student-div' key={s.sname} id={s.sname}>
+                        <button className='student' onClick={this.handleStudentClick}>{s.sname}</button>
+                    </div>
+            ));
+        }
+
         return (
             <div className='d-flex flex-row' style={{position: "relative"}}>
                 <div className='sidebar'>
                     <div className='student-div'>
-                        <button className='student' onClick={this.handleStudentClick}>全部</button>
+                        <button className='student select' onClick={this.handleStudentClick} id='s-all'>全部</button>
                     </div>
                     <div className='student-div'>
-                        <button className='student' onClick={this.handleStudentClick}>喵喵</button>
+                        <button className='student' onClick={this.handleStudentClick} id='meow'>喵喵</button>
                     </div>
                     <div className='student-div'>
-                        <button className='student' onClick={this.handleStudentClick}>汪汪</button>
+                        <button className='student' onClick={this.handleStudentClick} id='wof'>汪汪</button>
                     </div>
+                    {student}
                 </div>
                 <div className='right'>
                     <div className='record container-fluid'>
@@ -88,6 +107,12 @@ class Record extends React.Component {
     handleRecordClick(e) {
         console.log("on record click!");
     }   
+
+    handleStudentClick(e) {
+        e.target.classList.add("select");
+        document.querySelector(`#${this.props.select}`).classList.remove("select");
+        this.props.dispatch(changeSelect(e.target.id));
+    }
 }
 
 export default connect(state => ({

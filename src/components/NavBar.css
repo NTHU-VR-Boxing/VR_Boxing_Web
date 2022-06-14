@@ -35,3 +35,10 @@
 #headBar {
     background-color: #3A3E46;
 }
+
+/* select */
+.nav-select {
+    color: #F3B61B !important;
+    font-weight: bold;
+    border-top: 5px solid #F3B61B;
+}

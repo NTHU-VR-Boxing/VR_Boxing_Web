@@ -19,13 +19,11 @@ import './NavBar.css';
 
 
 class NavBar extends React.Component {
-    // static propTypes = {
-    //     activeList: PropTypes.bool,
-    //     activeRecord: PropTypes.bool
-    // };
 
     constructor(props) {
         super(props);
+
+        this.handleClick = this.handleClick.bind(this);
     }
     
     render() {
@@ -38,12 +36,12 @@ class NavBar extends React.Component {
                                 <NavbarBrand>VR Boxing 輔助系統</NavbarBrand>
                             </div>
                             <div className="p-2 others">
-                                <Nav navbar id="others_2">
+                                <Nav navbar id="others_2" >
                                     <NavItem>
-                                        <NavLink id="list" tag={Link} to="/list/">菜單制訂</NavLink>
+                                        <NavLink className='nav-select' id="list" tag={Link} to="/list/" onClick={this.handleClick}>菜單制訂</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink id="record" tag={Link} to="/record/">影片回饋</NavLink>
+                                        <NavLink id="record" tag={Link} to="/record/" onClick={this.handleClick}>影片回饋</NavLink>
                                     </NavItem>
                                     <UncontrolledDropdown nav inNavbar style={{flexGrow: "2", alignSelf: "flex-end"}}>
                                         <DropdownToggle nav caret id="userName" style={{textAlign: "right"}}>{getUsername()}</DropdownToggle>
@@ -60,6 +58,16 @@ class NavBar extends React.Component {
                 </Navbar>
             </div>
         )
+    }
+
+    handleClick(e) {
+        e.target.classList.add("nav-select");
+        if(e.target.id === 'list'){
+            document.querySelector('#record').classList.remove("nav-select");
+        }
+        else{
+            document.querySelector('#list').classList.remove("nav-select");
+        }
     }
 }
 
