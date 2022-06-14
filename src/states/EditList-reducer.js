@@ -42,6 +42,26 @@ export function editList(state = initEditListState, action) {
                 dodge: action.dodge,
                 timeline: action.timeline
             }
+        case 'CHANGE_NAME':
+            return {
+                ...state,
+                name: action.name
+            }
+        case 'CHANGE_HIT':
+            return {
+                ...state,
+                hit: action.hit
+            }
+        case 'CHANGE_BLOCK':
+            return {
+                ...state,
+                block: action.block
+            }
+        case 'CHANGE_DODGE':
+            return {
+                ...state,
+                dodge: action.dodge
+            }
         default:
             return state;
     }

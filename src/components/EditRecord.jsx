@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
+
+import { VideoPlayer } from './VideoPlayer.jsx';
+
 import 'components/EditRecord.css'
 
 class EditRecord extends React.Component {
@@ -46,6 +49,17 @@ class EditRecord extends React.Component {
       
 
     render() {
+        const videoJsOptions = {
+            autoplay: true,
+            controls: true,
+            sources: [{
+                src: 'https://140.114.88.33/v/719b12e2-b9af-4b1c-8b76-1543f4b987b2/index.m3u8',
+                type: 'application/x-mpegURL'
+            }],
+            width: "800",
+            height: "460"
+        };
+
         return (
             <div className='background'>
                 <div className='videoname'>
@@ -62,7 +76,7 @@ class EditRecord extends React.Component {
                     <br></br>
                     <br></br>
                     <div className='video'>
-
+                        <VideoPlayer {...videoJsOptions} />
                     </div>
                     <br></br>
                     <a className='result'>

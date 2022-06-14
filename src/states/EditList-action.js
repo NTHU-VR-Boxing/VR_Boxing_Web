@@ -25,3 +25,31 @@ export function initSession(name, hit, block, dodge, timeline) {
         timeline
     }
 }
+
+export function nameChange(name){
+    return {
+        type: 'CHANGE_NAME',
+        name
+    }
+}
+
+export function hitChange(hit){
+    return {
+        type: 'CHANGE_HIT',
+        hit
+    }
+}
+
+export function blockChange(block){
+    return {
+        type: 'CHANGE_BLOCK',
+        block
+    }
+}
+
+export function dodgeChange(dodge){
+    return {
+        type: 'CHANGE_DODGE',
+        dodge
+    }
+}

@@ -7,7 +7,7 @@ import { withRouter } from "react-router-dom";
 
 import Interactable from './Interactable.jsx';
 import { Timeline } from './Timeline.jsx';
-import { addBlock, moveBlock, initSession } from '../states/EditList-action.js';
+import { addBlock, moveBlock, initSession, nameChange, hitChange, blockChange, dodgeChange } from '../states/EditList-action.js';
 import { createSession, listSessionContent } from '../api/session.js';
 
 import 'components/EditList.css';
@@ -36,7 +36,11 @@ class EditList extends React.Component {
         }
         
         this.handleBlockClick = this.handleBlockClick.bind(this);
-        this.handleSaveClick = this.handleSaveClick.bind(this)
+        this.handleSaveClick = this.handleSaveClick.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleHitChange = this.handleHitChange.bind(this);
+        this.handleBlockChange = this.handleBlockChange.bind(this);
+        this.handleDodgeChange = this.handleDodgeChange.bind(this);
 
         this.draggableOptions = {
             onmove: event => {
@@ -64,11 +68,16 @@ class EditList extends React.Component {
         };
     }
 
-    // componentDidMount() {
-    //     const { id } = this.props.match.params;
-    //     console.log(id);
-        
-    // }
+    componentDidMount() {
+        // const { id } = this.props.match.params;
+        // console.log(id);
+        // if(id){
+        //     listSessionContent(id).then((res) => {
+        //         console.log(res);
+        //         this.props.dispatch(initSession(res.arrangement.name, res.goal.hit, res.goal.block, res.goal.dodge, res.arrangement.timeline));
+        //     })
+        // }
+    }
     
     render() {
         const {timeline} = this.props;
@@ -124,28 +133,28 @@ class EditList extends React.Component {
                             <Form style={{padding: "20px"}} id='session-goal'>
                                 <FormGroup className='mb-5'>
                                     <Label for='name' style={{color: "white", fontSize:"x-large"}}>菜單名稱</Label>
-                                    <Input type='text' name='name' defaultValue={this.props.name}/>
+                                    <Input type='text' name='name' value={this.props.name} onChange={this.handleNameChange}/>
                                 </FormGroup>
                                 <FormGroup row style={{color: "white"}}>
                                     <legend style={{color: "white"}}>設定目標</legend>
                                     <FormGroup className='d-flex flex-row'>
                                         <Label for='hit'>有效打擊</Label>
                                         <Col >
-                                            <Input type="text" name="hit" id="hit" bsSize="sm" defaultValue={this.props.hit}/>
+                                            <Input type="text" name="hit" id="hit" bsSize="sm" value={this.props.hit} onChange={this.handleHitChange}/>
                                         </Col>
                                         <Label style={{flexGrow: "2"}}>次</Label>
                                     </FormGroup>
                                     <FormGroup className='d-flex flex-row'>
                                         <Label for='block'>成功格檔</Label>
                                         <Col >
-                                            <Input type="text" name="block" id="block" bsSize="sm" defaultValue={this.props.block}/>
+                                            <Input type="text" name="block" id="block" bsSize="sm" value={this.props.block} onChange={this.handleBlockChange}/>
                                         </Col>
                                         <Label style={{flexGrow: "2"}}>次</Label>
                                     </FormGroup>
                                     <FormGroup className='d-flex flex-row'>
                                         <Label for='dodge'>成功閃避</Label>
                                         <Col >
-                                            <Input type="text" name="dodge" id="dodge" bsSize="sm" defaultValue={this.props.dodge}/>
+                                            <Input type="text" name="dodge" id="dodge" bsSize="sm" value={this.props.dodge} onChange={this.handleDodgeChange}/>
                                         </Col>
                                         <Label style={{flexGrow: "2"}}>次</Label>
                                     </FormGroup>
@@ -195,6 +204,22 @@ class EditList extends React.Component {
         createSession(this.props.timeline).then(()=>{
             this.props.history.goBack();
         });
+    }
+
+    handleNameChange(e){
+        this.props.dispatch(nameChange(e.target.value));
+    }
+
+    handleHitChange(e){
+        this.props.dispatch(hitChange(e.target.value));
+    }
+
+    handleBlockChange(e){
+        this.props.dispatch(blockChange(e.target.value));
+    }
+
+    handleDodgeChange(e){
+        this.props.dispatch(dodgeChange(e.target.value));
     }
 }
 
