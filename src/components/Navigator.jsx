@@ -31,31 +31,31 @@ export default class Navigator extends React.Component {
 					</Route>
 					<Route exact path='/list/'>
 						<div style={{display:'flex', flexDirection:'column'}}>
-							<NavBar/>
+							<NavBar select='list'/>
 							<List/>
 						</div>
 					</Route>
 					<Route exact path='/edit-list/'>
 						<div style={{display:'flex', flexDirection:'column'}}>
-							<NavBar/>
+							<NavBar select='list'/>
 							<EditList/>
 						</div>
 					</Route>
 					<Route path='/edit-list/:id'>
 						<div style={{display:'flex', flexDirection:'column'}}>
-							<NavBar/>
+							<NavBar select='list'/>
 							<EditList/>
 						</div>
 					</Route>
 					<Route exact path='/record/'>
 						<div style={{display:'flex', flexDirection:'column'}}>
-							<NavBar/>
+							<NavBar select='record'/>
 							<Record/>
 						</div>
 					</Route>
 					<Route exact path='/edit-record/'>
 						<div style={{display:'flex', flexDirection:'column'}}>
-							<NavBar/>
+							<NavBar select='record'/>
 							<EditRecord/>
 						</div>
 					</Route>

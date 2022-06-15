@@ -25,6 +25,15 @@ class NavBar extends React.Component {
 
         this.handleClick = this.handleClick.bind(this);
     }
+
+    componentDidMount() {
+        if(this.props.select === 'list'){
+            document.querySelector('#list').classList.add('nav-select');
+        }
+        else if(this.props.select === 'record'){
+            document.querySelector('#record').classList.add('nav-select');
+        }
+    }
     
     render() {
         return(
@@ -38,7 +47,7 @@ class NavBar extends React.Component {
                             <div className="p-2 others">
                                 <Nav navbar id="others_2" >
                                     <NavItem>
-                                        <NavLink className='nav-select' id="list" tag={Link} to="/list/" onClick={this.handleClick}>菜單制訂</NavLink>
+                                        <NavLink id="list" tag={Link} to="/list/" onClick={this.handleClick}>菜單制訂</NavLink>
                                     </NavItem>
                                     <NavItem>
                                         <NavLink id="record" tag={Link} to="/record/" onClick={this.handleClick}>影片回饋</NavLink>

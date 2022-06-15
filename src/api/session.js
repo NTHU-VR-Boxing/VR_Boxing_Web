@@ -54,6 +54,7 @@ export function listSession(cname) {
     return axios.get(url)
     .then(function (response) {
         //handle success
+        // console.log(response);
         return response.data.result;
     })
     .catch(function (error) {

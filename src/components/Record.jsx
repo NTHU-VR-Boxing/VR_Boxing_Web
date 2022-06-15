@@ -14,7 +14,6 @@ class Record extends React.Component {
 
         this.handleRecordClick = this.handleRecordClick.bind(this);
         this.handleStudentClick = this.handleStudentClick.bind(this);
-
     }
 
     componentDidMount(){
