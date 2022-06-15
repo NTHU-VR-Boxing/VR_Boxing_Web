@@ -47,14 +47,14 @@ export function createSession(timeline) {
 }
 
 export function listSession(cname) {
-    const url = `${baseUrl}/practices/sessions/${cname}`;
+    const url = `${baseUrl}/practices/session/search?cname=${cname}`;
     // const url = `${baseUrl}/practices/sessions`;
     console.log(`Making GET request to: ${url}`);
 
     return axios.get(url)
     .then(function (response) {
         //handle success
-        // console.log(response);
+        console.log(response);
         return response.data.result;
     })
     .catch(function (error) {

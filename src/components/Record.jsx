@@ -4,7 +4,7 @@ import {Link } from "react-router-dom";
 import {connect} from 'react-redux';
 
 import { listStudent } from '../states/List-action.js';
-import { changeSelect } from '../states/Record-action.js';
+import { changeSelect, listRecord } from '../states/Record-action.js';
 
 import './List.css'
 
@@ -17,7 +17,10 @@ class Record extends React.Component {
     }
 
     componentDidMount(){
-        // this.props.dispatch(listStudent());
+        if(this.props.select === 's-all') document.querySelector('#s-all').classList.add('select');
+        else document.querySelector(`#${this.props.select}`).classList.add('select');
+        this.props.dispatch(listStudent());
+        this.props.dispatch(listRecord(this.props.select)); // param: selected student
     }
 
     render() {
@@ -25,9 +28,29 @@ class Record extends React.Component {
         const {students} = this.props;
         if (students.length > 0) {
             student = students.map((s) => (
-                    <div className='student-div' key={s.sname} id={s.sname}>
-                        <button className='student' onClick={this.handleStudentClick}>{s.sname}</button>
+                    <div className='student-div' key={s.sname}>
+                        <button className='student' onClick={this.handleStudentClick} id={`s-${s.sname}`}>{s.sname}</button>
                     </div>
+            ));
+        }
+
+        let record = null;
+        const {records} = this.props;
+        if(records.length === 0) {
+            record = (
+                <div>
+                    <p>沒有任何練習影片...</p>
+                </div>
+            );
+        }
+        else {
+            record = records.map((r) => (
+                <div className='col' key={r.record_id} id={r.record_id}>
+                    <button className='mini-card-record' onClick={this.handleRecordClick}>
+                        <p className='record-word'>{r.practice_session_name}</p>
+                        <p>{getDate(r.time)}</p>
+                    </button>
+                </div>
             ));
         }
 
@@ -37,18 +60,13 @@ class Record extends React.Component {
                     <div className='student-div'>
                         <button className='student select' onClick={this.handleStudentClick} id='s-all'>全部</button>
                     </div>
-                    <div className='student-div'>
-                        <button className='student' onClick={this.handleStudentClick} id='meow'>喵喵</button>
-                    </div>
-                    <div className='student-div'>
-                        <button className='student' onClick={this.handleStudentClick} id='wof'>汪汪</button>
-                    </div>
                     {student}
                 </div>
                 <div className='right'>
                     <div className='record container-fluid'>
                         <div className='row row-cols-5 g-4 all-record'>
-                            <div className='col'>
+                            {record}
+                            {/* <div className='col'>
                                 <Link to='/edit-record/'>
                                     <button className='mini-card-record' onClick={this.handleRecordClick}>
                                         <p className='record-word'>組合拳</p>
@@ -61,7 +79,7 @@ class Record extends React.Component {
                                     <p className='record-word'>組合拳B</p>
                                     <p>2022/06/07</p>
                                 </button>
-                            </div>
+                            </div> */}
                             {/* have message number */}
                             {/* <div className='col'>
                                 <button className='mini-card-record'>
@@ -117,3 +135,15 @@ class Record extends React.Component {
 export default connect(state => ({
     ...state.record
 }))(Record);
+
+function getUsername() {
+    let name = document.cookie;
+    name = name.substring(10);
+    return name;
+    // console.log(name);
+}
+
+function getDate(unix_ts) {
+    const date = new Date(unix_ts * 1000);
+    return `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`;
+}

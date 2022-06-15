@@ -41,6 +41,12 @@ export function AddStudent(sname) {
     }
 }
 
+export function changeSelect(id) {
+    return {
+        type: '@STUDENT/LIST/SELECT',
+        id
+    }
+}
 
 function endListSession(sessions){ // update state
     return {

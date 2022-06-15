@@ -1,7 +1,8 @@
 const initListState = {
     modalAddStudent: false,
     students: [],
-    sessions: []
+    sessions: [],
+    select: 's-all'
 };
 
 export function list(state = initListState, action) {
@@ -15,6 +16,16 @@ export function list(state = initListState, action) {
             return {
                 ...state,
                 students: action.students
+            }
+        case '@STUDENT/LIST/SELECT':
+            return {
+                ...state,
+                select: action.id
+            }
+        case '@STUDENT/INIT':
+            return {
+                ...state,
+                select: 's-all'
             }
         case '@SESSION/LIST':
             return {

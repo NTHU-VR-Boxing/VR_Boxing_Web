@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, FormFeedback } from 'reactstrap';
 
 import { AddListButton } from './PageManager.jsx';
-import { listStudent, toggleModalAddStudent, AddStudent, listSession } from '../states/List-action.js';
+import { listStudent, toggleModalAddStudent, AddStudent, listSession, changeSelect } from '../states/List-action.js';
 
 import './List.css'
 
@@ -27,6 +27,8 @@ class List extends React.Component {
     }
 
     componentDidMount() { // list students and sessions
+        if(this.props.select === 's-all') document.querySelector('#s-all').classList.add('select');
+        else document.querySelector(`#${this.props.select}`).classList.add('select');
         this.props.dispatch(listStudent());
         this.props.dispatch(listSession(getUsername()));
     }
@@ -37,7 +39,7 @@ class List extends React.Component {
         if (students.length > 0) {
             student = students.map((s) => (
                     <div className='student-div' key={s.sname}>
-                        <button className='student' onClick={this.handleStudentClick}>{s.sname}</button>
+                        <button className='student' onClick={this.handleStudentClick} id={`s-${s.sname}`}>{s.sname}</button>
                     </div>
             ));
         }
@@ -71,7 +73,7 @@ class List extends React.Component {
                 <div className='sidebar'>
                     <div className='all-student'>
                         <div className='student-div'>
-                            <button className='student' onClick={this.handleStudentClick}>全部</button>
+                            <button className='student' onClick={this.handleStudentClick} id='s-all'>全部</button>
                         </div>
                         {student}
                     </div>
@@ -104,7 +106,9 @@ class List extends React.Component {
     }
 
     handleStudentClick(e) {
-        
+        e.target.classList.add("select");
+        document.querySelector(`#${this.props.select}`).classList.remove("select");
+        this.props.dispatch(changeSelect(e.target.id));
     }
 
     handleAddStudentClick(e) {
