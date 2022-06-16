@@ -28,6 +28,7 @@
 
 .date {
     color: white;
+    height: 20px;
 }
 
 .video {
@@ -70,6 +71,7 @@
 .pleaseenter {
     margin-left: 10%;
     color : rgb(75, 75, 75);
+    height: 5px;
 }
 
 .feedbackresponse {
@@ -78,14 +80,16 @@
 
 .feedbacktext {
     height: 30vh;
+    overflow-y: auto;
 }
 
 .inputsummary {
     margin-left: 10%;
-    width: 50%;
+    width: 80%;
+    height: 18%;
 }
 .delete {
-    background-color: rgb(255, 34, 0);
+    background-color: red;
     outline: none;
     border: none;
     border-radius: 50px;
@@ -93,9 +97,10 @@
     height: 40px;
     color: white;
     margin-top: 10%;
+    margin-right: 30px;
 }
 .complete {
-    background-color: rgb(255, 230, 0);
+    background-color: #F3B61B;
     outline: none;
     border: none;
     border-radius: 50px;
@@ -109,5 +114,12 @@
 .feedbacktext {
     margin-left: 10%;
     white-space: pre-wrap;
+}
+
+.byTime-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: black;
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Badge } from 'reactstrap';
-import {Link } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import { listStudent } from '../states/List-action.js';
@@ -137,8 +137,15 @@ class Record extends React.Component {
         );
     }
     
-    handleRecordClick(e) {
-        console.log("on record click!");
+    handleRecordClick(e) { // TODO: edit old feedback
+        // console.log(e.target.parentElement.parentNode.id);
+        if(this.props.switch === false){ // to add new feedback
+            this.props.history.push(`/edit-record/${e.target.parentElement.parentNode.id}`);
+        }
+        else { // edit old feedback
+            this.props.history.push(`/edit-record/${e.target.parentElement.parentNode.id}`);
+        }
+        
     }   
 
     handleStudentClick(e) {
@@ -152,9 +159,9 @@ class Record extends React.Component {
     }
 }
 
-export default connect(state => ({
+export default withRouter(connect(state => ({
     ...state.record
-}))(Record);
+}))(Record));
 
 function getUsername() {
     let name = document.cookie;
