@@ -74,8 +74,8 @@ class EditRecord extends React.Component {
             autoplay: true,
             controls: true,
             sources: [{
-                src: video_url,
-                type: 'application/x-mpegURL'
+                "src": video_url,
+                "type": 'application/x-mpegURL'
             }],
             width: "800",
             height: "460"
