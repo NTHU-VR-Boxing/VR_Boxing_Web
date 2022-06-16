@@ -76,6 +76,7 @@ class EditList extends React.Component {
         //         this.props.dispatch(initSession(res.arrangement.name, res.goal.hit, res.goal.block, res.goal.dodge, res.arrangement.timeline));
         //     })
         // }
+        this.props.dispatch(initSession('', '', '', '', []));
     }
     
     render() {

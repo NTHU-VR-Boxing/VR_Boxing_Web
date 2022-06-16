@@ -5,10 +5,12 @@ import { withRouter } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 
 import { VideoPlayer } from './VideoPlayer.jsx';
-import { initRecordId } from '../states/EditRecord-action.js';
-import { inputMin, inputSec, inputText, submitByTime, inputTotal } from '../states/EditRecord-action.js';
+import { inputMin, inputSec, inputText, submitByTime, inputTotal, initRecord, initFeedbackId, initRecordId, initFeedback } from '../states/EditRecord-action.js';
+import { createFeedback, listRecordContent, listFeedbackContent } from '../api/record.js';
+import { listSessionContent } from '../api/session.js';
 
 import 'components/EditRecord.css'
+import { data } from 'jquery';
 
 class EditRecord extends React.Component {
     static propTypes = {
@@ -23,13 +25,13 @@ class EditRecord extends React.Component {
     constructor(props) {
         super(props);
 
-        const { recordId } = this.props.match.params;
+        const { recordId, feedbackId } = this.props.match.params;
         if(recordId){
             this.props.dispatch(initRecordId(recordId));
-            // listSessionContent(id).then((res) => {
-            //     console.log(res);
-            //     this.props.dispatch(initSession(res.arrangement.name, res.goal.hit, res.goal.block, res.goal.dodge, res.arrangement.timeline));
-            // })
+        }
+
+        if(feedbackId) { // edit old feedback
+            this.props.dispatch(initFeedbackId(feedbackId)); 
         }
     
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,14 +39,42 @@ class EditRecord extends React.Component {
         this.handleSecChange = this.handleSecChange.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleTotalChange = this.handleTotalChange.bind(this);
-      }
+        this.handleSubmitAll = this.handleSubmitAll.bind(this);
+    }
+
+    componentDidMount() {
+        const { recordId, feedbackId } = this.props.match.params;
+        if(recordId) {
+            listRecordContent(recordId).then((res) => {
+                //console.log(res);
+                listSessionContent(res.practice_sesson_id).then((r) => {
+                    // console.log("video:" + res.video_url);
+                    this.props.dispatch(initRecord(r.practice_session_name, res.sname, res.time, res.score.hit, res.score.block, res.score.dodge, res.video_url));
+                }).catch((err) => { 
+                    console.log(err);
+                })
+            })
+        }
+        if(feedbackId) {
+            listFeedbackContent(feedbackId).then((content) => {
+                console.log(content);
+                this.props.dispatch(initFeedback(content.byTime, content.total));
+            })
+        }
+        else {
+            this.props.dispatch(initFeedback([], ''))
+        }
+    }
     
     render() {
+        // if(this.props.v_url) console.log("HEY");
+        let video_url = this.props.v_url ? `https://140.114.88.33${this.props.v_url}` : 'https://140.114.88.33/v/719b12e2-b9af-4b1c-8b76-1543f4b987b2/index.m3u8';
+        // let video_url = this.props.v_url.length > 0 ? `https:140.114.88.33${this.props.v_url}` : 'https://140.114.88.33/v/719b12e2-b9af-4b1c-8b76-1543f4b987b2/index.m3u8';
         const videoJsOptions = {
             autoplay: false,
             controls: true,
             sources: [{
-                src: 'https://140.114.88.33/v/719b12e2-b9af-4b1c-8b76-1543f4b987b2/index.m3u8',
+                src: video_url,
                 type: 'application/x-mpegURL'
             }],
             width: "800",
@@ -70,19 +100,19 @@ class EditRecord extends React.Component {
             <div className='background'>
                 <div className='videoname'>
                     <div className='title'>
-                        組合拳A
+                        {this.props.session_name}
                         <br></br>
-                        喵喵
+                        {this.props.sname}
                     </div>
                     <p className='date'>
-                        2021/06/11
+                        {getDate(this.props.date)}
                     </p>
                     <div className='video'>
                         <VideoPlayer {...videoJsOptions} />
                     </div>
                     <br></br>
                     <p className='result'>
-                        有效打擊次數 : 3 次  成功格擋次數 : 3次 成功閃躲次數 : 3次
+                        有效打擊次數 : {this.props.hit} 次  成功格擋次數 : {this.props.block}次 成功閃躲次數 : {this.props.dodge}次
                     </p>
                 </div>
                 <div className='feedback'>
@@ -114,7 +144,7 @@ class EditRecord extends React.Component {
                         <button className='delete'>
                             刪除
                         </button>
-                        <button className='complete'>
+                        <button className='complete' onClick={this.handleSubmitAll}>
                             完成
                         </button>
                     </center>
@@ -150,9 +180,21 @@ class EditRecord extends React.Component {
     handleTotalChange(e) {
         this.props.dispatch(inputTotal(e.target.value));
     }
+
+    handleSubmitAll(e) {
+        createFeedback(this.props.recordId, this.props.byTime, this.props.total).then((res) => {
+            console.log(res);
+            this.props.history.push('/record/');
+        })
+    }
 }
 
 export default withRouter(connect(state => ({
     ...state.editRecord
 }))(EditRecord));
+
+function getDate(unix_ts) {
+    const date = new Date(unix_ts * 1000);
+    return `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`;
+}
 

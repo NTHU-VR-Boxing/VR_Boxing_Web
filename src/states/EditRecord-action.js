@@ -7,6 +7,13 @@ export function initRecordId(recordId) {
     }
 }
 
+export function initFeedbackId(feedbackID) {
+    return {
+        type: 'INIT_FID',
+        feedbackID: feedbackID
+    }
+}
+
 export function inputMin(min) {
     return {
         type: 'INPUT_MIN',
@@ -40,6 +47,27 @@ export function submitByTime(min, sec, text) {
 export function inputTotal(total) {
     return {
         type: 'INPUT_TOTAL',
+        total
+    }
+}
+
+export function initRecord(session_name, sname, time, hit, block, dodge, video_url){
+    return {
+        type: '@RECORD/INIT',
+        session_name: session_name,
+        sname: sname,
+        time: time,
+        hit: hit,
+        block: block,
+        dodge: dodge,
+        video_url: video_url
+    }
+}
+
+export function initFeedback(byTime, total) {
+    return {
+        type: '@FEEDBACK/INIT',
+        byTime,
         total
     }
 }

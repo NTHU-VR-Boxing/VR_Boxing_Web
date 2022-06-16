@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import { listStudent } from '../states/List-action.js';
-import { changeSelect, listRecord, changeSwitch } from '../states/Record-action.js';
+import { changeSelect, listRecord, changeSwitch, listFeedback } from '../states/Record-action.js';
 
 import './List.css'
 
@@ -30,12 +30,22 @@ class Record extends React.Component {
             const sname = this.props.select.split('-')[1];
             this.props.dispatch(listRecord(sname));
         }
+
+        if(this.props.switch !== prevProps.switch) {
+            if(this.props.switch === true) { // list feedback only
+                this.props.dispatch(listFeedback(getUsername()));
+            }
+            else { // list record
+                const sname = this.props.select.split('-')[1];
+                this.props.dispatch(listRecord(sname)); // param: selected student
+            }
+        }
     }
 
     render() {
         let student = null;
         const {students} = this.props;
-        if (students.length > 0) {
+        if (students.length > 0 && !this.props.switch) {
             student = students.map((s) => (
                     <div className='student-div' key={s.sname}>
                         <button className='student' onClick={this.handleStudentClick} id={`s-${s.sname}`}>{s.sname}</button>
@@ -44,24 +54,52 @@ class Record extends React.Component {
         }
 
         let record = null;
-        const {records} = this.props;
-        if(records.length === 0) {
-            record = (
-                <div>
-                    <p>沒有任何練習影片...</p>
-                </div>
-            );
+        let feedback = null;
+
+        if(this.props.switch === false) {
+            const {records} = this.props;
+            if(records.length === 0) {
+                record = (
+                    <div>
+                        <p>沒有任何練習影片...</p>
+                    </div>
+                );
+            }
+            else {
+                record = records.map((r) => (
+                    <div className='col' key={r.record_id} id={r.record_id}>
+                        <button className='mini-card-record' onClick={this.handleRecordClick}>
+                            <p className='record-word'>{r.practice_session_name}</p>
+                            <p>{getDate(r.time)}</p>
+                        </button>
+                    </div>
+                ));
+            }
         }
         else {
-            record = records.map((r) => (
-                <div className='col' key={r.record_id} id={r.record_id}>
-                    <button className='mini-card-record' onClick={this.handleRecordClick}>
-                        <p className='record-word'>{r.practice_session_name}</p>
-                        <p>{getDate(r.time)}</p>
-                    </button>
-                </div>
-            ));
+            const {feedbacks} = this.props;
+            if(feedbacks.length === 0) {
+                feedback = (
+                    <div>
+                        <p>沒有任何回饋紀錄...</p>
+                    </div>
+                );
+            }
+            else {
+                feedback = feedbacks.map((f) => (
+                    <div className='col' key={f.feedback_id} fid={f.feedback_id} rid={f.record_id}>
+                        {/* <button className='mini-card-record' onClick={this.handleRecordClick}>
+                            <p className='record-word'>{f.feedback_id}</p>
+                            <p>{getDate(f.create_time)}</p>
+                        </button> */}
+                        <button className='mini-card' onClick={this.handleRecordClick}>
+                            <p className='word'>{getDate(f.create_time)}</p>
+                        </button>
+                    </div>
+                ));
+            }
         }
+        
 
         return (
             <div className='d-flex flex-row' style={{position: "relative"}}>
@@ -76,12 +114,12 @@ class Record extends React.Component {
                     <input
                     type='checkbox' className='custom-control-input' id='customSwitches'
                     checked={this.props.switch} onChange={this.handleSwitchChange} readOnly/>
-                    <label className='custom-control-label' htmlFor='customSwitches' style={{color: "white"}}>已回饋</label>
+                    <label className='custom-control-label' htmlFor='customSwitches' style={{color: "white"}}>只顯示已回饋的紀錄</label>
                 </div>
-                <div style={{float: "right", padding: "10px", color: "white"}}>未回饋</div>
+                {/* <div style={{float: "right", padding: "10px", color: "white"}}>所有練習紀錄</div> */}
                     <div className='record container-fluid'>
                         <div className='row row-cols-5 g-4 all-record'>
-                            {record}
+                            {this.props.switch ? feedback : record}
                             {/* <div className='col'>
                                 <Link to='/edit-record/'>
                                     <button className='mini-card-record' onClick={this.handleRecordClick}>
@@ -138,14 +176,13 @@ class Record extends React.Component {
     }
     
     handleRecordClick(e) { // TODO: edit old feedback
-        // console.log(e.target.parentElement.parentNode.id);
+        // console.log(e.target.parentElement.parentNode.getAttribute('rid'));
         if(this.props.switch === false){ // to add new feedback
             this.props.history.push(`/edit-record/${e.target.parentElement.parentNode.id}`);
         }
         else { // edit old feedback
-            this.props.history.push(`/edit-record/${e.target.parentElement.parentNode.id}`);
-        }
-        
+            this.props.history.push(`/edit-record/${e.target.parentElement.parentNode.getAttribute('rid')}/${e.target.parentElement.parentNode.getAttribute('fid')}`);
+        }  
     }   
 
     handleStudentClick(e) {

@@ -2,6 +2,7 @@ const initRecordState = {
     students: [],
     select: 's-all',
     records: [],
+    feedbacks: [],
     switch: false
 };
 
@@ -31,6 +32,11 @@ export function record(state = initRecordState, action) {
             return {
                 ...state,
                 switch: !state.switch
+            }
+        case '@FEEDBACK/LIST':
+            return {
+                ...state,
+                feedbacks: action.feedbacks
             }
         default:
             return state;

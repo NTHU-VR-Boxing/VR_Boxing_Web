@@ -1,10 +1,18 @@
 const initEditRecordState = {
     recordId: '',
+    feedbackId: '',
     byTime: [],
     total: '',
     inputMin: '',
     inputSec: '',
-    inputText: ''
+    inputText: '',
+    v_url: '',
+    session_name: '',
+    sname: '',
+    date: '',
+    hit: 0,
+    block: 0,
+    dodge: 0
 };
 
 export function editRecord(state = initEditRecordState, action) {
@@ -14,6 +22,11 @@ export function editRecord(state = initEditRecordState, action) {
                 ...state,
                 recordId: action.recordId
             }
+            case 'INIT_FID':
+                return {
+                    ...state,
+                    feedbackId: action.feedbackId
+                }
         case 'INPUT_MIN':
             return {
                 ...state,
@@ -43,6 +56,23 @@ export function editRecord(state = initEditRecordState, action) {
         case 'INPUT_TOTAL':
             return {
                 ...state,
+                total: action.total
+            }
+        case '@RECORD/INIT':
+            return {
+                ...state,
+                session_name: action.session_name,
+                sname: action.sname,
+                date: action.time,
+                hit: action.hit,
+                block: action.block,
+                dodge: action.dodge,
+                v_url: action.video_url
+            }
+        case '@FEEDBACK/INIT':
+            return {
+                ...state,
+                byTime: action.byTime,
                 total: action.total
             }
         default:

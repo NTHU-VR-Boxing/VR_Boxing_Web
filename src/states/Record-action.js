@@ -1,4 +1,7 @@
-import { listRecord as listRecordFromApi } from "../api/record.js";
+import { 
+    listRecord as listRecordFromApi,
+    listFeedback as listFeedbackFromApi
+ } from "../api/record.js";
 
 export function changeSelect(id) {
     return {
@@ -28,5 +31,23 @@ function endListRecord(records){ // update state
 export function changeSwitch() {
     return {
         type: '@SWITCH/TOGGLE'
+    }
+}
+
+export function listFeedback(cname) {
+    console.log("Start listing feedbacks...");
+    return (dispatch) =>{
+        listFeedbackFromApi(cname).then((feedbacks) => {
+            dispatch(endListFeedback(feedbacks));
+        }).catch((err) => {
+            console.log('Error listing feedbacks', err);
+        }).then(console.log("End listing feedbacks."));
+    } 
+}
+
+function endListFeedback(feedbacks){ // update state
+    return {
+        type: '@FEEDBACK/LIST',
+        feedbacks: feedbacks
     }
 }

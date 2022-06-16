@@ -76,11 +76,15 @@ export function listSessionContent(id) {
     return axios.get(url)
     .then(function (response) {
         //handle success
-        if(response.data.result.arrangement.timeline.length > 0) {
-            for(let i=0; i<response.data.result.arrangement.timeline.length; i++) {
-                response.data.result.arrangement.timeline[i].id = uuidv4();
+        // console.log(response);
+        if(response.data.result.arrangement.timeline){ // to handle bad data with wrong spec
+             if(response.data.result.arrangement.timeline.length > 0) {
+                for(let i=0; i<response.data.result.arrangement.timeline.length; i++) {
+                    response.data.result.arrangement.timeline[i].id = uuidv4();
+                }
             }
         }
+       
         return response.data.result;
     })
     .catch(function (error) {
