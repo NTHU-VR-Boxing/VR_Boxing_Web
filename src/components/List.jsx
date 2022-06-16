@@ -30,7 +30,15 @@ class List extends React.Component {
         if(this.props.select === 's-all') document.querySelector('#s-all').classList.add('select');
         else document.querySelector(`#${this.props.select}`).classList.add('select');
         this.props.dispatch(listStudent());
-        this.props.dispatch(listSession(getUsername()));
+        const sname = this.props.select.split('-')[1];
+        this.props.dispatch(listSession(getUsername(), sname));
+    }
+
+    componentDidUpdate(prevProps) {
+        if(this.props.select !== prevProps.select) {
+            const sname = this.props.select.split('-')[1];
+            this.props.dispatch(listSession(getUsername(), sname));
+        }
     }
     
     render() {
@@ -57,7 +65,7 @@ class List extends React.Component {
             session = sessions.map((ses) => (
                 <div className='col' key={ses.practice_session_id} id={ses.practice_session_id}>
                     <button className='mini-card' onClick={this.handleSessionClick}>
-                        <p className='word'>{ses.create_time}</p>
+                        <p className='word'>{ses.practice_session_name}</p>
                     </button>
                 </div>
             ));

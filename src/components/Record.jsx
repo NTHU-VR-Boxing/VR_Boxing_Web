@@ -20,7 +20,15 @@ class Record extends React.Component {
         if(this.props.select === 's-all') document.querySelector('#s-all').classList.add('select');
         else document.querySelector(`#${this.props.select}`).classList.add('select');
         this.props.dispatch(listStudent());
-        this.props.dispatch(listRecord(this.props.select)); // param: selected student
+        const sname = this.props.select.split('-')[1];
+        this.props.dispatch(listRecord(sname)); // param: selected student
+    }
+
+    componentDidUpdate(prevProps) {
+        if(this.props.select !== prevProps.select) {
+            const sname = this.props.select.split('-')[1];
+            this.props.dispatch(listRecord(sname));
+        }
     }
 
     render() {

@@ -46,15 +46,20 @@ export function createSession(timeline) {
     });
 }
 
-export function listSession(cname) {
-    const url = `${baseUrl}/practices/session/search?cname=${cname}`;
-    // const url = `${baseUrl}/practices/sessions`;
+export function listSession(cname, sname) {
+    let url;
+    if(sname === 'all') {
+        url = `${baseUrl}/practices/session/search?cname=${cname}`;
+    }
+    else {
+        url = `${baseUrl}/practices/session/search?cname=${cname}&sname=${sname}`;
+    }
     console.log(`Making GET request to: ${url}`);
 
     return axios.get(url)
     .then(function (response) {
         //handle success
-        console.log(response);
+        // console.log(response);
         return response.data.result;
     })
     .catch(function (error) {

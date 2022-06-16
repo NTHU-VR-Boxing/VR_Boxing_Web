@@ -4,7 +4,7 @@ const baseUrl = 'https://140.114.88.33/api';
 
 export function listRecord(sname) {
     let url;
-    if(sname === 's-all') url = `${baseUrl}/practices/record/search`;  // list all students' record
+    if(sname === 'all') url = `${baseUrl}/practices/record/search`;  // list all students' record
     else url = `${baseUrl}/practices/record/search?sname=${sname}`;
     console.log(`Making GET request to: ${url}`);
 
