@@ -10,7 +10,6 @@ import { createFeedback, listRecordContent, listFeedbackContent } from '../api/r
 import { listSessionContent } from '../api/session.js';
 
 import 'components/EditRecord.css'
-import { data } from 'jquery';
 
 class EditRecord extends React.Component {
     static propTypes = {
@@ -74,8 +73,8 @@ class EditRecord extends React.Component {
             autoplay: true,
             controls: true,
             sources: [{
-                "src": video_url,
-                "type": 'application/x-mpegURL'
+                src: video_url,
+                type: 'application/x-mpegURL'
             }],
             width: "800",
             height: "460"
