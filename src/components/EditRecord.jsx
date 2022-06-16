@@ -71,7 +71,7 @@ class EditRecord extends React.Component {
         let video_url = this.props.v_url ? `https://140.114.88.33${this.props.v_url}` : 'https://140.114.88.33/v/719b12e2-b9af-4b1c-8b76-1543f4b987b2/index.m3u8';
         // let video_url = this.props.v_url.length > 0 ? `https:140.114.88.33${this.props.v_url}` : 'https://140.114.88.33/v/719b12e2-b9af-4b1c-8b76-1543f4b987b2/index.m3u8';
         const videoJsOptions = {
-            autoplay: false,
+            autoplay: true,
             controls: true,
             sources: [{
                 src: video_url,

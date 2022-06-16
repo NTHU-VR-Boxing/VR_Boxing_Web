@@ -61,7 +61,7 @@ class Record extends React.Component {
             if(records.length === 0) {
                 record = (
                     <div>
-                        <p>沒有任何練習影片...</p>
+                        <p>沒有任何練習紀錄...</p>
                     </div>
                 );
             }
@@ -114,9 +114,9 @@ class Record extends React.Component {
                     <input
                     type='checkbox' className='custom-control-input' id='customSwitches'
                     checked={this.props.switch} onChange={this.handleSwitchChange} readOnly/>
-                    <label className='custom-control-label' htmlFor='customSwitches' style={{color: "white"}}>只顯示已回饋的紀錄</label>
+                    <label className='custom-control-label' htmlFor='customSwitches' style={{color: "white"}}>已回饋的紀錄</label>
                 </div>
-                {/* <div style={{float: "right", padding: "10px", color: "white"}}>所有練習紀錄</div> */}
+                <div style={{float: "right", padding: "10px", color: "white"}}>所有練習紀錄</div>
                     <div className='record container-fluid'>
                         <div className='row row-cols-5 g-4 all-record'>
                             {this.props.switch ? feedback : record}
