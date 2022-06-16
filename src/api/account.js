@@ -57,6 +57,21 @@ export function login() {
     });
 }
 
+export function logout() {
+    const url = `${baseUrl}/logout`;
+    console.log(`Making POST request to: ${url}`);
+
+    return axios.post(url)
+    .then(function (response) {
+        //handle success
+        console.log("success to logout!");
+    })
+    .catch(function (error) {
+        //handle error
+        console.log(error);
+    });
+}
+
 export function listStudent() {
     const url = `${baseUrl}/users/student`;
     console.log(`Making GET request to: ${url}`);

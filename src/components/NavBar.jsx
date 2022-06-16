@@ -13,7 +13,9 @@ import {
     DropdownMenu,
     DropdownItem, 
     Container} from 'reactstrap';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+
+import { logout } from '../api/account.js';
 
 import './NavBar.css';
 
@@ -24,6 +26,7 @@ class NavBar extends React.Component {
         super(props);
 
         this.handleClick = this.handleClick.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
     componentDidMount() {
@@ -55,7 +58,7 @@ class NavBar extends React.Component {
                                     <UncontrolledDropdown nav inNavbar style={{flexGrow: "2", alignSelf: "flex-end"}}>
                                         <DropdownToggle nav caret id="userName" style={{textAlign: "right"}}>{getUsername()}</DropdownToggle>
                                         <DropdownMenu right>
-                                        <DropdownItem>
+                                        <DropdownItem onClick={this.handleLogout}>
                                             登出
                                         </DropdownItem>
                                         </DropdownMenu>
@@ -78,10 +81,15 @@ class NavBar extends React.Component {
             document.querySelector('#list').classList.remove("nav-select");
         }
     }
+
+    handleLogout(e) {
+        logout();
+        this.props.history.push('/');
+    }
 }
 
-export default connect(state => ({
-}))(NavBar);
+export default withRouter(connect(state => ({
+}))(NavBar));
 
 function getUsername() {
     let name = document.cookie;
