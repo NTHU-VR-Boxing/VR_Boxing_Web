@@ -4,7 +4,7 @@ import {Link } from "react-router-dom";
 import {connect} from 'react-redux';
 
 import { listStudent } from '../states/List-action.js';
-import { changeSelect, listRecord } from '../states/Record-action.js';
+import { changeSelect, listRecord, changeSwitch } from '../states/Record-action.js';
 
 import './List.css'
 
@@ -14,6 +14,7 @@ class Record extends React.Component {
 
         this.handleRecordClick = this.handleRecordClick.bind(this);
         this.handleStudentClick = this.handleStudentClick.bind(this);
+        this.handleSwitchChange = this.handleSwitchChange.bind(this);
     }
 
     componentDidMount(){
@@ -71,6 +72,13 @@ class Record extends React.Component {
                     {student}
                 </div>
                 <div className='right'>
+                <div className='custom-control custom-switch' style={{float: "right", marginRight: "20px", marginTop: "10px"}}>
+                    <input
+                    type='checkbox' className='custom-control-input' id='customSwitches'
+                    checked={this.props.switch} onChange={this.handleSwitchChange} readOnly/>
+                    <label className='custom-control-label' htmlFor='customSwitches' style={{color: "white"}}>已回饋</label>
+                </div>
+                <div style={{float: "right", padding: "10px", color: "white"}}>未回饋</div>
                     <div className='record container-fluid'>
                         <div className='row row-cols-5 g-4 all-record'>
                             {record}
@@ -137,6 +145,10 @@ class Record extends React.Component {
         e.target.classList.add("select");
         document.querySelector(`#${this.props.select}`).classList.remove("select");
         this.props.dispatch(changeSelect(e.target.id));
+    }
+
+    handleSwitchChange(e) {
+        this.props.dispatch(changeSwitch());
     }
 }
 

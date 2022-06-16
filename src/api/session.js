@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 const baseUrl = 'https://140.114.88.33/api';
 
@@ -69,12 +70,17 @@ export function listSession(cname, sname) {
 }
 
 export function listSessionContent(id) {
-    const url = `${baseUrl}/practices/session/${id}`;
+    const url = `${baseUrl}/practices/session?id=${id}`;
     console.log(`Making GET request to: ${url}`);
 
     return axios.get(url)
     .then(function (response) {
         //handle success
+        if(response.data.result.arrangement.timeline.length > 0) {
+            for(let i=0; i<response.data.result.arrangement.timeline.length; i++) {
+                response.data.result.arrangement.timeline[i].id = uuidv4();
+            }
+        }
         return response.data.result;
     })
     .catch(function (error) {

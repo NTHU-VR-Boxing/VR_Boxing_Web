@@ -92,7 +92,8 @@
 
 /* Record */
 .record {
-    height: 90%;
+    top: 3%;
+    height: 87%;
     overflow-y: auto;
     position: absolute;
     width: 100%;

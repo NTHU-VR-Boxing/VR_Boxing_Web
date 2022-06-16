@@ -1,7 +1,8 @@
 const initRecordState = {
     students: [],
     select: 's-all',
-    records: []
+    records: [],
+    switch: false
 };
 
 export function record(state = initRecordState, action) {
@@ -25,6 +26,11 @@ export function record(state = initRecordState, action) {
             return {
                 ...state,
                 records: action.records
+            }
+        case '@SWITCH/TOGGLE':
+            return {
+                ...state,
+                switch: !state.switch
             }
         default:
             return state;

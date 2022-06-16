@@ -27,7 +27,6 @@ class EditList extends React.Component {
         super(props);
 
         const { id } = this.props.match.params;
-        console.log(id);
         if(id){
             listSessionContent(id).then((res) => {
                 console.log(res);

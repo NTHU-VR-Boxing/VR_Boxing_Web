@@ -24,3 +24,9 @@ function endListRecord(records){ // update state
         records: records
     }
 }
+
+export function changeSwitch() {
+    return {
+        type: '@SWITCH/TOGGLE'
+    }
+}
