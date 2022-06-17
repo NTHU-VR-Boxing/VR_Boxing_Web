@@ -10,7 +10,7 @@ export function initRecordId(recordId) {
 export function initFeedbackId(feedbackID) {
     return {
         type: 'INIT_FID',
-        feedbackID: feedbackID
+        feedbackId: feedbackID
     }
 }
 

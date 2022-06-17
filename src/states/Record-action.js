@@ -10,10 +10,10 @@ export function changeSelect(id) {
     }
 }
 
-export function listRecord(sname) {
+export function listRecord(sname, cname) {
     console.log("Start listing records...");
     return (dispatch) =>{
-        listRecordFromApi(sname).then((records) => {
+        listRecordFromApi(sname, cname).then((records) => {
             dispatch(endListRecord(records));
         }).catch((err) => {
             console.log('Error listing records', err);

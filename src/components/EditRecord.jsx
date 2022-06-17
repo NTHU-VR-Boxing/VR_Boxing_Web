@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { VideoPlayer } from './VideoPlayer.jsx';
 import { inputMin, inputSec, inputText, submitByTime, inputTotal, initRecord, initFeedbackId, initRecordId, initFeedback } from '../states/EditRecord-action.js';
-import { createFeedback, listRecordContent, listFeedbackContent } from '../api/record.js';
+import { createFeedback, listRecordContent, listFeedbackContent, deleteFeedback } from '../api/record.js';
 import { listSessionContent } from '../api/session.js';
 
 import 'components/EditRecord.css'
@@ -39,6 +39,7 @@ class EditRecord extends React.Component {
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleTotalChange = this.handleTotalChange.bind(this);
         this.handleSubmitAll = this.handleSubmitAll.bind(this);
+        this.handleDeleteClick = this.handleDeleteClick.bind(this);
     }
 
     componentDidMount() {
@@ -140,7 +141,7 @@ class EditRecord extends React.Component {
                     <br></br>
 
                     <center>
-                        <button className='delete'>
+                        <button className='delete' onClick={this.handleDeleteClick}>
                             刪除
                         </button>
                         <button className='complete' onClick={this.handleSubmitAll}>
@@ -181,10 +182,19 @@ class EditRecord extends React.Component {
     }
 
     handleSubmitAll(e) {
-        createFeedback(this.props.recordId, this.props.byTime, this.props.total).then((res) => {
+        createFeedback(this.props.recordId, this.props.byTime, this.props.total, this.props.feedbackId).then((res) => {
             console.log(res);
             this.props.history.push('/record/');
         })
+    }
+
+    handleDeleteClick(e) {
+        if(this.props.feedbackId === '') this.props.history.push('/record/');
+        else{
+            deleteFeedback(this.props.feedbackId).then(() => {
+                this.props.history.push('/record/');
+            })
+        }
     }
 }
 

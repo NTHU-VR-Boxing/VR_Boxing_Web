@@ -93,6 +93,7 @@ export default withRouter(connect(state => ({
 
 function getUsername() {
     let name = document.cookie;
+    name = name.split(';')[0];
     name = name.substring(10);
     return name;
     // console.log(name);

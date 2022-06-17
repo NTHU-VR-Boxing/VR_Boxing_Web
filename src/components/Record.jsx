@@ -22,13 +22,14 @@ class Record extends React.Component {
         else document.querySelector(`#${this.props.select}`).classList.add('select');
         this.props.dispatch(listStudent());
         const sname = this.props.select.split('-')[1];
-        this.props.dispatch(listRecord(sname)); // param: selected student
+        this.props.dispatch(listRecord(sname, getUsername())); // param: selected student
+        if(this.props.switch === true) this.props.dispatch(listFeedback(getUsername()));
     }
 
     componentDidUpdate(prevProps) {
         if(this.props.select !== prevProps.select) {
             const sname = this.props.select.split('-')[1];
-            this.props.dispatch(listRecord(sname));
+            this.props.dispatch(listRecord(sname, getUsername()));
         }
 
         if(this.props.switch !== prevProps.switch) {
@@ -37,7 +38,7 @@ class Record extends React.Component {
             }
             else { // list record
                 const sname = this.props.select.split('-')[1];
-                this.props.dispatch(listRecord(sname)); // param: selected student
+                this.props.dispatch(listRecord(sname, getUsername())); // param: selected student
             }
         }
     }
@@ -46,11 +47,17 @@ class Record extends React.Component {
         let student = null;
         const {students} = this.props;
         if (students.length > 0 && !this.props.switch) {
-            student = students.map((s) => (
-                    <div className='student-div' key={s.sname}>
-                        <button className='student' onClick={this.handleStudentClick} id={`s-${s.sname}`}>{s.sname}</button>
+            student = students.map((s) => {
+                let withoutSpaceName = s.sname;
+                withoutSpaceName = withoutSpaceName.replace(/\s+/g, '');
+                // console.log(withoutSpaceName);
+
+                return (
+                     <div className='student-div' key={s.sname}>
+                        <button className='student' onClick={this.handleStudentClick} id={`s-${withoutSpaceName}`}>{s.sname}</button>
                     </div>
-            ));
+                ) 
+            });
         }
 
         let record = null;
@@ -175,7 +182,7 @@ class Record extends React.Component {
         );
     }
     
-    handleRecordClick(e) { // TODO: edit old feedback
+    handleRecordClick(e) { 
         // console.log(e.target.parentElement.parentNode.getAttribute('rid'));
         if(this.props.switch === false){ // to add new feedback
             this.props.history.push(`/edit-record/${e.target.parentElement.parentNode.id}`);
@@ -202,6 +209,7 @@ export default withRouter(connect(state => ({
 
 function getUsername() {
     let name = document.cookie;
+    name = name.split(';')[0];
     name = name.substring(10);
     return name;
     // console.log(name);

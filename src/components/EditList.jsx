@@ -8,7 +8,7 @@ import { withRouter } from "react-router-dom";
 import Interactable from './Interactable.jsx';
 import { Timeline } from './Timeline.jsx';
 import { addBlock, moveBlock, initSession, nameChange, hitChange, blockChange, dodgeChange } from '../states/EditList-action.js';
-import { createSession, listSessionContent } from '../api/session.js';
+import { createSession, listSessionContent, deleteSession } from '../api/session.js';
 
 import 'components/EditList.css';
 
@@ -40,6 +40,7 @@ class EditList extends React.Component {
         this.handleHitChange = this.handleHitChange.bind(this);
         this.handleBlockChange = this.handleBlockChange.bind(this);
         this.handleDodgeChange = this.handleDodgeChange.bind(this);
+        this.handleDeleteClick = this.handleDeleteClick.bind(this);
 
         this.draggableOptions = {
             onmove: event => {
@@ -68,14 +69,6 @@ class EditList extends React.Component {
     }
 
     componentDidMount() {
-        // const { id } = this.props.match.params;
-        // console.log(id);
-        // if(id){
-        //     listSessionContent(id).then((res) => {
-        //         console.log(res);
-        //         this.props.dispatch(initSession(res.arrangement.name, res.goal.hit, res.goal.block, res.goal.dodge, res.arrangement.timeline));
-        //     })
-        // }
         this.props.dispatch(initSession('', '', '', '', []));
     }
     
@@ -165,7 +158,7 @@ class EditList extends React.Component {
                         <div className='button d-flex flex-column'>
                             <button className='clickButton' style={{backgroundColor: "#F3B61B"}} onClick={this.handleSaveClick}>儲存</button>
                             {/* <SaveButton/> */}
-                            <button className='clickButton' style={{backgroundColor: "red", color: "white"}}>刪除</button>
+                            <button className='clickButton' style={{backgroundColor: "red", color: "white"}} onClick={this.handleDeleteClick}>刪除</button>
                         </div>
                     </div>
                     <div className='timeline'>
@@ -201,7 +194,8 @@ class EditList extends React.Component {
     } 
 
     handleSaveClick(e) {
-        createSession(this.props.timeline).then(()=>{
+        let id = this.props.match.params.id ? this.props.match.params.id : ''; // whether to edit old session
+        createSession(this.props.timeline, id).then(()=>{
             this.props.history.goBack();
         });
     }
@@ -220,6 +214,16 @@ class EditList extends React.Component {
 
     handleDodgeChange(e){
         this.props.dispatch(dodgeChange(e.target.value));
+    }
+
+    handleDeleteClick(e) {
+        let id = this.props.match.params.id;
+        if(id){
+            deleteSession(id).then(() => {
+                this.props.history.goBack();
+            })
+        }
+        else this.props.history.goBack();
     }
 }
 

@@ -3,9 +3,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 const baseUrl = 'https://140.114.88.33/api';
 
-export function createSession(timeline) {
+export function createSession(timeline, id) {
     let el = document.querySelector("#session-goal");
     let formData = new FormData(el);   
+
+    let url;
+    if(id === '') url = `/practices/session`;
+    else url = `/practices/session?id=${id}`;
 
     // console.log(formData.get('name'));
     // console.log(formData.get('hit'));
@@ -18,12 +22,12 @@ export function createSession(timeline) {
     });
     // console.log(timeline);
 
-    console.log(`Making POST request to: ${baseUrl}/practices/session`);
+    console.log(`Making POST request to: ${baseUrl}${url}`);
 
     return axios({
         method: "post",
         baseURL: baseUrl,
-        url: '/practices/session',
+        url: url,
         data: {
             arrangement: {
                 name: formData.get('name'),
@@ -91,4 +95,15 @@ export function listSessionContent(id) {
         //handle error
         console.log(error);
     });
+}
+
+export function deleteSession(id) {
+    const url = `${baseUrl}/practices/session?id=${id}`
+    return axios.delete(url)
+    .then((res) => {
+        // console.log(res);
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 }

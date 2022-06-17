@@ -45,11 +45,17 @@ class List extends React.Component {
         let student = null;
         const {students} = this.props;
         if (students.length > 0) {
-            student = students.map((s) => (
-                    <div className='student-div' key={s.sname}>
-                        <button className='student' onClick={this.handleStudentClick} id={`s-${s.sname}`}>{s.sname}</button>
+            student = students.map((s) => {
+                let withoutSpaceName = s.sname;
+                withoutSpaceName = withoutSpaceName.replace(/\s+/g, '');
+                // console.log(withoutSpaceName);
+            
+                return (
+                     <div className='student-div' key={s.sname}>
+                        <button className='student' onClick={this.handleStudentClick} id={`s-${withoutSpaceName}`}>{s.sname}</button>
                     </div>
-            ));
+                );   
+            });
         }
 
         let session = null;
@@ -152,6 +158,7 @@ export default withRouter(connect(state => ({
 
 function getUsername() {
     let name = document.cookie;
+    name = name.split(';')[0];
     name = name.substring(10);
     return name;
     // console.log(name);
