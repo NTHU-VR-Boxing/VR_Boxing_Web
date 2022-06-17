@@ -114,7 +114,8 @@ class List extends React.Component {
                         </div>
                     </div>
                     <div className='add-button'>
-                        <button className='clickButton' style={{ backgroundColor: "#F3B61B", width: "170px"}} onClick={this.handleAddSessionClick}>建立新菜單</button>
+                        {this.props.select !== 's-all' &&
+                        <button className='clickButton' style={{ backgroundColor: "#F3B61B", width: "170px"}} onClick={this.handleAddSessionClick}>建立新菜單</button>}
                     </div>
                 </div>
             </div>
@@ -154,11 +155,6 @@ class List extends React.Component {
     }
 
     handleAddSessionClick(e) {
-        // console.log(document.querySelector(`#${this.props.select}`).textContent);
-        // let sname = '';
-        // if(this.props.select === 's-all') {
-        //     // TODO
-        // }
         this.props.history.push(`/edit-list/new/${document.querySelector(`#${this.props.select}`).textContent}`);
     }
 
