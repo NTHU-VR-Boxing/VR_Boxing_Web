@@ -15,6 +15,7 @@ class Record extends React.Component {
         this.handleRecordClick = this.handleRecordClick.bind(this);
         this.handleStudentClick = this.handleStudentClick.bind(this);
         this.handleSwitchChange = this.handleSwitchChange.bind(this);
+        this.getStudentName = this.getStudentName.bind(this);
     }
 
     componentDidMount(){
@@ -22,14 +23,14 @@ class Record extends React.Component {
         else document.querySelector(`#${this.props.select}`).classList.add('select');
         this.props.dispatch(listStudent());
         const sname = this.props.select.split('-')[1];
-        this.props.dispatch(listRecord(sname, getUsername())); // param: selected student
+        this.props.dispatch(listRecord(this.getStudentName(), getUsername())); // param: selected student
         if(this.props.switch === true) this.props.dispatch(listFeedback(getUsername()));
     }
 
     componentDidUpdate(prevProps) {
         if(this.props.select !== prevProps.select) {
             const sname = this.props.select.split('-')[1];
-            this.props.dispatch(listRecord(sname, getUsername()));
+            this.props.dispatch(listRecord(this.getStudentName(), getUsername()));
         }
 
         if(this.props.switch !== prevProps.switch) {
@@ -38,7 +39,7 @@ class Record extends React.Component {
             }
             else { // list record
                 const sname = this.props.select.split('-')[1];
-                this.props.dispatch(listRecord(sname, getUsername())); // param: selected student
+                this.props.dispatch(listRecord(this.getStudentName(), getUsername())); // param: selected student
             }
         }
     }
@@ -200,6 +201,10 @@ class Record extends React.Component {
 
     handleSwitchChange(e) {
         this.props.dispatch(changeSwitch());
+    }
+
+    getStudentName() {
+        return this.props.select === 's-all' ? 'all' : document.querySelector(`#${this.props.select}`).textContent;
     }
 }
 

@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const baseUrl = 'https://140.114.88.33/api';
 
-export function createSession(timeline, id) {
+export function createSession(timeline, sname, id) {
     let el = document.querySelector("#session-goal");
     let formData = new FormData(el);   
 
@@ -29,6 +29,8 @@ export function createSession(timeline, id) {
         baseURL: baseUrl,
         url: url,
         data: {
+            practice_session_name: formData.get('name'),
+            sname: sname,
             arrangement: {
                 name: formData.get('name'),
                 timeline: timeline

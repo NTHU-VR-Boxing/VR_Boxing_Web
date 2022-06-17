@@ -35,13 +35,13 @@ export default class Navigator extends React.Component {
 							<List/>
 						</div>
 					</Route>
-					<Route exact path='/edit-list/'>
+					<Route exact path='/edit-list/new/:sname'>
 						<div style={{display:'flex', flexDirection:'column'}}>
 							<NavBar select='list'/>
 							<EditList/>
 						</div>
 					</Route>
-					<Route path='/edit-list/:id'>
+					<Route exact path='/edit-list/:id'>
 						<div style={{display:'flex', flexDirection:'column'}}>
 							<NavBar select='list'/>
 							<EditList/>

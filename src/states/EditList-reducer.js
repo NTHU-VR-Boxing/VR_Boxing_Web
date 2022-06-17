@@ -3,7 +3,8 @@ const initEditListState = {
     name: '',
     hit: 0,
     block: 0, 
-    dodge: 0
+    dodge: 0,
+    sname: ''
 };
 
 export function editList(state = initEditListState, action) {
@@ -61,6 +62,11 @@ export function editList(state = initEditListState, action) {
             return {
                 ...state,
                 dodge: action.dodge
+            }
+        case 'INIT_SNAME':
+            return {
+                ...state,
+                sname: action.sname
             }
         default:
             return state;

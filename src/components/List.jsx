@@ -24,6 +24,8 @@ class List extends React.Component {
         this.handleAddStudent = this.handleAddStudent.bind(this);
         this.cancelAlert = this.cancelAlert.bind(this);
         this.handleSessionClick = this.handleSessionClick.bind(this);
+        this.handleAddSessionClick = this.handleAddSessionClick.bind(this);
+        this.getStudentName = this.getStudentName.bind(this);
     }
 
     componentDidMount() { // list students and sessions
@@ -31,13 +33,13 @@ class List extends React.Component {
         else document.querySelector(`#${this.props.select}`).classList.add('select');
         this.props.dispatch(listStudent());
         const sname = this.props.select.split('-')[1];
-        this.props.dispatch(listSession(getUsername(), sname));
+        this.props.dispatch(listSession(getUsername(), this.getStudentName()));
     }
 
     componentDidUpdate(prevProps) {
         if(this.props.select !== prevProps.select) {
             const sname = this.props.select.split('-')[1];
-            this.props.dispatch(listSession(getUsername(), sname));
+            this.props.dispatch(listSession(getUsername(), this.getStudentName()));
         }
     }
     
@@ -112,7 +114,7 @@ class List extends React.Component {
                         </div>
                     </div>
                     <div className='add-button'>
-                        <AddListButton/>
+                        <button className='clickButton' style={{ backgroundColor: "#F3B61B", width: "170px"}} onClick={this.handleAddSessionClick}>建立新菜單</button>
                     </div>
                 </div>
             </div>
@@ -149,6 +151,19 @@ class List extends React.Component {
     handleSessionClick(e) {
         // console.log(e.target.parentElement.parentNode.id)
         this.props.history.push(`/edit-list/${e.target.parentElement.parentNode.id}`);
+    }
+
+    handleAddSessionClick(e) {
+        // console.log(document.querySelector(`#${this.props.select}`).textContent);
+        // let sname = '';
+        // if(this.props.select === 's-all') {
+        //     // TODO
+        // }
+        this.props.history.push(`/edit-list/new/${document.querySelector(`#${this.props.select}`).textContent}`);
+    }
+
+    getStudentName() {
+        return this.props.select === 's-all' ? 'all' : document.querySelector(`#${this.props.select}`).textContent;
     }
 }
 

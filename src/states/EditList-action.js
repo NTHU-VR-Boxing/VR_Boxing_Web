@@ -53,3 +53,10 @@ export function dodgeChange(dodge){
         dodge
     }
 }
+
+export function initStudent(sname) {
+    return {
+        type: 'INIT_SNAME',
+        sname
+    }
+}

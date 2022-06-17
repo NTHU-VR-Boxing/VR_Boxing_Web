@@ -7,7 +7,7 @@ import { withRouter } from "react-router-dom";
 
 import Interactable from './Interactable.jsx';
 import { Timeline } from './Timeline.jsx';
-import { addBlock, moveBlock, initSession, nameChange, hitChange, blockChange, dodgeChange } from '../states/EditList-action.js';
+import { addBlock, moveBlock, initSession, nameChange, hitChange, blockChange, dodgeChange, initStudent } from '../states/EditList-action.js';
 import { createSession, listSessionContent, deleteSession } from '../api/session.js';
 
 import 'components/EditList.css';
@@ -26,12 +26,16 @@ class EditList extends React.Component {
     constructor(props) {
         super(props);
 
-        const { id } = this.props.match.params;
+        const { id, sname } = this.props.match.params;
         if(id){
             listSessionContent(id).then((res) => {
                 console.log(res);
                 this.props.dispatch(initSession(res.arrangement.name, res.goal.hit, res.goal.block, res.goal.dodge, res.arrangement.timeline));
+                this.props.dispatch(initStudent(res.sname));
             })
+        }
+        if(sname) {
+            this.props.dispatch(initStudent(sname));
         }
         
         this.handleBlockClick = this.handleBlockClick.bind(this);
@@ -195,7 +199,7 @@ class EditList extends React.Component {
 
     handleSaveClick(e) {
         let id = this.props.match.params.id ? this.props.match.params.id : ''; // whether to edit old session
-        createSession(this.props.timeline, id).then(()=>{
+        createSession(this.props.timeline, this.props.sname, id).then(()=>{
             this.props.history.goBack();
         });
     }
