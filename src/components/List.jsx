@@ -65,7 +65,7 @@ class List extends React.Component {
         if(sessions.length === 0) {
             session = (
                 <div>
-                    <p>沒有已建立的清單...</p>
+                    <p>沒有已建立的菜單...</p>
                 </div>
             );
         }
